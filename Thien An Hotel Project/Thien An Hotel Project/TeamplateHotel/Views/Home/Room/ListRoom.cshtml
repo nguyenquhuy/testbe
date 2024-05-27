@@ -1,0 +1,47 @@
+﻿@using ProjectLibrary.Database
+@using TeamplateHotel.Handler
+@model IEnumerable<Room>
+@{
+    Layout = "~/Views/Shared/_Layout_home.cshtml";
+    Menu menu = ViewBag.Menu ?? new Menu();
+    Article article = ViewBag.ArticleByRoomRate ?? new Article();
+}
+<div class="col-lg-12 room-list">
+    <h1 class="main-title  wow fadeInDown animated animated" style="visibility: visible; animation-name: fadeInDown;">
+        @menu.Title  
+
+    </h1>
+    <div class="content-main wow fadeInDown animated animated" style="margin-bottom: 15px; visibility: visible; animation-name: fadeInDown;">
+        @Html.Raw(article.Description)
+        <div class="rooms-list">
+            <div class="rooms">
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="item-list clearfix">
+                                @foreach (var item in Model)
+                                {
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 col-ss-12">
+                                        <div class="box-content box-shadow">
+                                            <a href="/@item.MenuAlias/@item.ID/@item.Alias" class="img-box"><img src="@item.Image"></a>
+                                            <div class="info">
+                                                <a title="Superior Double Room" href="/@item.MenuAlias/@item.ID/@item.Alias"><h4>@item.Title</h4></a>
+                                                <p> @Html.Raw(item.Description)</p>
+                                                <a href="/@item.MenuAlias/@item.ID/@item.Alias" class="btn btn-danger" style="width:100%; margin-top:10px;">@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "ViewRoomDetails")</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

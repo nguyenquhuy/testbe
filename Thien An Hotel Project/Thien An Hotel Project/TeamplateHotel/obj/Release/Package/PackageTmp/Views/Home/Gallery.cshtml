@@ -1,0 +1,54 @@
+﻿@using ProjectLibrary.Config
+@using ProjectLibrary.Database
+@using TeamplateHotel.Controllers
+@model IEnumerable<Gallery>
+@{
+    Layout = "~/Views/Shared/_Layout_home.cshtml";
+    Menu menu = ViewBag.Menu ?? new Menu();
+    List<Menu> menus = CommentController.GetMainMenus(Request.Cookies["LanguageID"].Value).Where(a => a.Type == SystemMenuType.Gallery).ToList();
+}
+<!-- Css prettyphoto-master -->
+<link href="~/Plugins/prettyphoto-master/css/prettyPhoto.css" rel="stylesheet" />
+<!-- Jquery prettyphoto-master -->
+<script src="~/Plugins/prettyphoto-master/js/jquery.prettyPhoto.js"></script>
+
+<div class="col-lg-9 col-md-8 col-sm-8">
+    <h1 class="main-title  wow fadeInDown animated animated" style="visibility: visible; animation-name: fadeInDown;">
+        @menu.Title
+    </h1>
+    <div class="content-main wow fadeInDown animated animated" style="visibility: visible; animation-name: fadeInDown;">
+        <div style="margin-top:15px; padding-top:15px; border-top:1px solid #dcdcdc;">
+            @foreach (var item in menus.Where(a => a.ParentID != 0))
+            {
+                <h3 title="@item.ID" class="main-title wow fadeInDown animated animated animated" style="font-size: 20px; margin-bottom: 20px;">@item.Title</h3>
+                <div class="row">
+                    @foreach (var gallery in Model.Where(a=>a.MenuId == item.ID))
+                    {
+                        <div class="col-md-3 col-sm-3" style="margin-bottom: 25px;">
+                            <div class="gallery-item">
+                                <a class="pfzoom" href="@gallery.LargeImage" data-rel="prettyPhoto[mixed]" rel="prettyPhoto[mixed]">
+                                    <img src="@gallery.SmallImage">
+                                </a>
+                            </div>
+                        </div>
+                    }
+                        
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        jQuery("a[rel^='prettyPhoto']").prettyPhoto({ animationSpeed: 'slow', theme: 'pp_default', gallery_markup: '', slideshow: 2000, social_tools: '' });
+
+    });
+</script>
+
+@Html.Partial("Comment/SiteBar")
+
+<style>
+    .gallery-item img {
+        width: 100%;
+    }
+</style>

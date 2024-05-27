@@ -1,0 +1,112 @@
+﻿@using TeamplateHotel.Controllers
+@using TeamplateHotel.Handler
+@using TeamplateHotel.Models
+@{
+    var articleHots = CommentController.HotArticles(Request.Cookies["LanguageID"].Value);
+    var serviceShowHome = CommentController.ServiceShowHome(Request.Cookies["LanguageID"].Value);
+    List<ShowObject> rooms = CommentController.RoomShowHome(Request.Cookies["LanguageID"].Value);
+}
+<link href="~/Plugins/OwlCarousel/assets/owl.carousel.min.css" rel="stylesheet" />
+
+<div class="rooms-list container-fluid" style="margin-top: 0px;padding: 40px 0 25px;background: #8a1537;">
+    <div class="rooms">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="color333 title uppercase mg-bottom-25 text-center" style="color:#fff">@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "Accommodation")</h1>
+                    <div class="">
+                        <div class="item-list clearfix">
+                           
+                                @foreach (var item in rooms.Take(5))
+                                {
+								<div class="col-md-4 col-sm-4">
+                                    <div class="box-content box-shadow">
+                                        <a href="/@item.MenuAlias/@item.ID/@item.Alias" class="img-box"><img src="@item.Image"></a>
+                                        <div class="info">
+                                            <a title="Superior Double Room" href="/@item.MenuAlias/@item.ID/@item.Alias"><h4>@item.Title</h4></a>
+                                            <p> @Html.Raw(item.Description)</p>
+                                            <a href="/@item.MenuAlias/@item.ID/@item.Alias" class="btn btn-danger">@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "ViewRoomDetails")</a>
+                                        </div>
+                                    </div>
+								</div>
+                                }
+                            @*<div class="col-md-4 col-sm-4">
+                                <figure>
+                                    <img src="~/Content/images/b.jpg" width="100%"/>
+                                </figure>
+                            </div>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<section class="wow fadeInUp animated" style="padding: 30px 0px 35px; visibility: visible; animation-name: fadeInUp;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mg-top-15">
+                <div style="display:inline-block; width:100%;">
+                    <h2 class="title uppercase color333 left">@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "HOTELSERVICES")</h2>
+                    @if (serviceShowHome.Count > 0)
+                    {
+                        <a title="Packages &amp; Offers" href="/@serviceShowHome[0].MenuAlias" class="right uppercase mg-top-10">@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "Viewall")..</a>
+                    }
+                </div>
+                <div class="topic-item-service col-md-12">
+                    <div class="row">
+                        <div class="flexslider">
+                            <ul class="slides">
+                                @foreach (var item in serviceShowHome)
+                                {
+                                    <li>
+                                        <div class="img-box media-box">
+                                            <a title="/@item.MenuAlias/@item.ID/@item.Alias" class="fbox-media">
+                                                <img alt="@item.Title" src="@item.Image" draggable="false">
+                                                @*<span class="media-price"><span class="price-sell">@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "SPECIALPACKAGE")</span></span>*@
+                                            </a>
+                                            <div class="offer-info">
+                                                <a title="@item.Title" href="/@item.MenuAlias/@item.ID/@item.Alias"><h5>@item.Title</h5></a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mg-top-15 servicetopic">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="title uppercase color333 left">@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "tttour")</h2>
+                        @if (articleHots.Count > 0)
+                        {
+                            <a href="/@articleHots[0].MenuAlias" class="right uppercase mg-top-10">@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "Viewall")..</a>
+                        }
+                    </div>
+                    <div class="">
+                        @foreach (var item in articleHots)
+                        {
+                            <div class="mg-bottom-21 col-md-6">
+                                <div class="img-box media-box">
+                                    <a class="fbox-media" href="/@item.MenuAlias/@item.ID/@item.Alias" title="@item.Title">
+                                        <img src="@item.Image" alt="@item.Title">
+                                    </a>
+                                    <div class="des-info">
+                                        <a href="/@item.MenuAlias/@item.ID/@item.Alias" title=""><h5 class="">@item.Title</h5></a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

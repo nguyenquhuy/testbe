@@ -1,0 +1,138 @@
+﻿@using TeamplateHotel.Controllers
+@using TeamplateHotel.Handler
+@using TeamplateHotel.Models
+@{
+    ViewBag.Home = true;
+    Layout = "~/Views/Shared/_Layout_home.cshtml";
+    ShowObject article = CommentController.WellcomeArticle(Request.Cookies["LanguageID"].Value) ?? new ShowObject();
+}
+
+
+<div class="col-md-9 col-sm-6 col-xs-12">
+    <h1 class="color333 title uppercase mg-bottom-25">@article.Title</h1>
+    <div class="home-des">
+        @Html.Raw(article.Description)
+    </div>
+
+</div>
+
+<div class="col-md-3 col-sm-6 col-xs-12 checkhome">
+    <div class="panel-default widget-booking" style="padding: 15px 0 25px 0; display: inline-block; width: 100%;">
+        <div class="checkrateform">
+            <form action="/booking" method="get" id="formCheckRoom" novalidate="novalidate">
+                @*<input id="CompanyId" name="CompanyId" type="hidden" value="WHT8888">
+                <div id="av-wrap-list-hotel" style="display:none">
+                    <select class="av-listhotel" data-val="true" data-val-range="Please select a hotel" data-val-range-max="2147483647" data-val-range-min="1" data-val-required="Please select a hotel" id="HotelId" name="HotelId">
+                        <option value="">All Properties</option>
+                        <option selected="selected" value="372907"></option>
+                        <option value="637478"></option>
+                        <option value="852203"></option>
+                        <option value="619755"></option>
+                        <option value="788720"></option>
+                    </select>*@
+                    <span class="field-validation-valid" data-valmsg-for="HotelId" data-valmsg-replace="true"></span>
+                </div>
+                <div class="form-horizontal">
+                    <div class="header-form">@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "MakeAReservation")</div>
+                    <div style="display: inline-block; width: 100%;">
+                        <div class="col-md-12">
+                            <div class="">
+                                <div class="mg-top-10">
+                                    <label class="control-label" for="checkin">@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "CheckIn")*</label>
+                                    <div class="">
+                                        <div class="box-cal">
+                                            <input type="text" class="form-control" id="checkin" name="CheckIn" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mg-top-10">
+                                    <label class="control-label" for="checkout">@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "CheckOut")*</label>
+                                    <div class="">
+                                        <div class="box-cal">
+                                            <input type="text" class="form-control" id="checkout" name="CheckOut" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mg-top-10">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label class="control-label" for="inputPassword3">@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "Adults")</label>
+                                            <div class="">
+                                                <select class="form-control input-sm" id="adults" name="Adult">
+                                                    <option value="1" selected="selected">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10</option>
+                                                    <option value="11">11</option>
+                                                    <option value="12">12</option>
+                                                    <option value="13">13</option>
+                                                    <option value="14">14</option>
+                                                    <option value="15">15</option>
+                                                    <option value="16">16</option>
+                                                    <option value="17">17</option>
+                                                    <option value="18">18</option>
+                                                    <option value="19">19</option>
+                                                    <option value="20">20</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="control-label" for="inputPassword3">@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "Child")</label>
+                                            <div class="">
+                                                <select class="form-control input-sm" id="Chilren" name="Child">
+                                                    <option value="0" selected="selected">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="AvailabilityCheck mg-top-20">
+                        <div class="col-sm-12">
+                            <input class="button" id="cmdCheckHotel" name="cmdCheckHotel" type="submit" value="@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "CheckAvailability")">
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    var checkIn = new Date();
+    var checkOut = new Date();
+    checkOut.setDate(checkIn.getDate() + 1);
+
+    $(document).ready(function () {
+        $("#checkin").val($.datepicker.formatDate('mm/dd/yy', checkIn));
+        $("#checkout").val($.datepicker.formatDate('mm/dd/yy', checkOut));
+        $("#checkin").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            minDate: new Date(),
+        });
+        $("#checkout").datepicker({
+            changeMonth: true,
+            changeYear: true,
+        });
+    });
+</script>

@@ -1,0 +1,101 @@
+﻿@using ProjectLibrary.Database
+@using TeamplateHotel.Controllers
+@{
+    Layout = "~/Views/Shared/_Layout_home.cshtml";
+    Menu menu = ViewBag.Menu ?? new Menu();
+    Hotel detailHotel = CommentController.DetailHotel(Request.Cookies["LanguageID"].Value);
+    Article article = ViewBag.ArticleByRoomRate ?? new Article();
+}
+
+<div class="col-md-9 col-sm-6 col-xs-12">
+    <h1 class="color333 title uppercase mg-bottom-25">@menu.Title</h1>
+    <div class="home-des">
+        <div id="map" style="height: 450px; width: 100%; margin-top: 20px;"></div>
+    </div>
+</div>
+
+
+    @Html.Partial("Comment/SiteBar");
+
+    <style>
+        .gallery-item img {
+            width: 100%;
+        }
+    </style>
+
+    <script>
+    // Note: This example requires that you consent to location sharing when
+    // prompted by your browser. If you see the error "The Geolocation service
+    // failed.", it means you probably did not give permission for the browser to
+    // locate you.
+
+    var html = "<div style='cursor: default; width: 564px; height: 158px; z-index: -356;'>" +
+    "<div style='position: absolute; left: 0px; top: 0px;'>" +
+    "<div style='width: 0px; height: 0px; border-right-width: 10px; border-right-style: solid; border-right-color: transparent; border-left-width: 10px; border-left-style: solid; border-left-color: transparent; border-top-width: 24px; border-top-style: solid; border-top-color: rgba(0, 0, 0, 0.0980392); position: absolute; left: 283px; top: 165px;'></div>" +
+    "<div style='position: absolute; left: 28px; top: 0px; width: 564px; height: 158px;'></div><div style='border-top-width: 24px; position: absolute; left: 282px; top: 166px;'><div style='position: absolute; overflow: hidden; left: -6px; top: -1px; width: 16px; height: 30px;'><div style='position: absolute; left: 6px; background-color: rgb(255, 255, 255); -webkit-transform: skewX(22.6deg); -webkit-transform-origin: 0px 0px; height: 24px; width: 10px; box-shadow: rgba(0, 0, 0, 0.6) 0px 1px 6px;'></div></div><div style='position: absolute; overflow: hidden; top: -1px; left: 10px; width: 16px; height: 30px;'><div style='position: absolute; left: 0px; background-color: rgb(255, 255, 255); -webkit-transform: skewX(-22.6deg); -webkit-transform-origin: 10px 0px; height: 24px; width: 10px; box-shadow: rgba(0, 0, 0, 0.6) 0px 1px 6px;'></div>" +
+    "</div>" +
+    "</div>" +
+    "<div style='position: absolute; left: 1px; top: 1px; border-top-left-radius: 2px; border-top-right-radius: 2px; border-bottom-right-radius: 2px; border-bottom-left-radius: 2px; background-color: rgb(255, 255, 255); width: 562px; height: 156px;'></div>" +
+    "</div>" +
+    "<div class='gm-style-iw' style='position: absolute; left: 12px; top: 9px; overflow: auto; width: 520px; height: 140px;'>" +
+    "<div class=style='overflow: auto;'><div style='display:block;width: 168px;height: 140px;float: left;'>" +
+    "<a href='/' target='_blank'><img alt='Littel Hanoi Hotels' src='@detailHotel.Image' style='float:left; height:101px; margin-left:10px; margin-right:10px; width:148px;'></a></div>" +
+    "<div style='width:520px;display:block'><p><span style='color:#B22222'><strong style='font-family: &quot;trajan pro&quot;;letter-spacing: 3px;'>@detailHotel.Name.ToUpper()</strong></span></p><p style='margin-top:-4px'>" +
+    "<span style='line-height:1.6em'><strong>Add:</strong> @detailHotel.Address</span><br>" +
+    "<span style='line-height:1.6em'><strong>Tel:</strong> @detailHotel.Tel</span><br>" +
+    "<span style='line-height:1.6em'><strong>Email:</strong> @detailHotel.Email</span></p></div>" +
+    "</div><div>" +
+    "</div>";
+
+    function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: {@detailHotel.Location},
+            zoom: 16
+        });
+        var infoWindow = new google.maps.InfoWindow({ map: map });
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                var pos = {@detailHotel.Location};
+
+                infoWindow.setPosition(pos);
+                infoWindow.setContent(html);
+                map.setCenter(pos);
+            }, function () {
+                handleLocationError(true, infoWindow, map.getCenter());
+            });
+        } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
+        }
+        var marker = new google.maps.Marker({
+            position: { @detailHotel.Location},
+            map: map,
+        })
+    }
+
+
+
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+            html :
+            'Error: Your browser doesn\'t support geolocation.');
+    }
+    </script>
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrDdWn62iUUAq5ft_HzGME9tbLv-k10Vg&callback=initMap" async defer></script>
+    <style>
+        .gm-style div, .gm-style span, .gm-style label, .gm-style a {
+            font-size: 12px;
+            font-family: verdana, helvetica, sans-serif;
+            -webkit-text-size-adjust: none;
+            color: #333333;
+        }
+
+        .gm-style-iw {
+            overflow: inherit !important;
+        }
+    </style>

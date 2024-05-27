@@ -1,0 +1,40 @@
+1. Index check			index.html
+http://lakeinn.ancorathemes.com/home/home-2/   100%; ok
+
+
+2.About check			about.html
+http://lakeinn.ancorathemes.com/about/    100%; ok
+
+
+3.Team check 			our-team.html
+http://lakeinn.ancorathemes.com/our-team/     100%; ok
+
+
+4.Details Team check	detail-team.html
+http://lakeinn.ancorathemes.com/team/angelina-whitehead/    100%; ok
+
+
+5.List rooms check		room-rate.html
+http://lakeinn.ancorathemes.com/room-rates/    100%;  ok
+
+
+6.Details rooms check		detail-room.html
+http://lakeinn.ancorathemes.com/rooms/standard/     100%;   ok - calendar done
+
+
+7.Article check				check-article.html
+http://lakeinn.ancorathemes.com/category/portfolio-3-columns/   100%;
+
+
+8.Details article check 		detail-article.html
+http://lakeinn.ancorathemes.com/8-tips-for-traveling-india/     100%;    ok;
+
+
+9.Gallerry check 			gallery-grid.html
+http://lakeinn.ancorathemes.com/grid/   100%; ok  
+
+10.Contact			contact.html
+http://lakeinn.ancorathemes.com/contacts/    100%; ok
+
+COMPLETE: 8
+REMAIN : 0

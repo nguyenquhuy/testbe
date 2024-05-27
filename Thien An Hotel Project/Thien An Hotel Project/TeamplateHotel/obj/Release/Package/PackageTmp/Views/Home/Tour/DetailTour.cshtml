@@ -1,0 +1,517 @@
+﻿@using ProjectLibrary.Database
+@using ProjectLibrary.Utility
+@using TeamplateHotel.Handler
+@model TeamplateHotel.Models.DetailTour
+@{
+    Layout = "~/Views/Shared/_Layout_home.cshtml";
+    Menu menu = ViewBag.Menu ?? new Menu();
+    string defaultTab = "";
+}
+<link href="~/Plugins/TabTour/Css/zozo.tabs.min.css" rel="stylesheet" />
+<link href="~/Plugins/TabTour/Css/zozo.examples.min.css" rel="stylesheet" />
+<link href="~/Plugins/prettyphoto-master/css/prettyPhoto.css" rel="stylesheet" />
+
+<script src="~/Plugins/TabTour/Js/zozo.tabs.min.js"></script>
+<script src="~/Plugins/prettyphoto-master/js/jquery.prettyPhoto.js"></script>
+
+<link href="~/Plugins/Validate/jquery-validation-1.13.1/jquery-validation.css" rel="stylesheet" />
+<script src="~/Plugins/Validate/jquery-validation-1.13.1/jquery.validate.min.js"></script>
+<script src="~/Plugins/Validate/jquery-validation-1.13.1/additional-methods.min.js"></script>
+
+
+<div class="col-lg-9 col-md-8 col-sm-8">
+
+    <div style="width:100%; display:inline-block; padding-bottom:10px; margin-bottom:15px;border-bottom:1px solid #dcdcdc;">
+        <h1 class="main-title left" style="margin:0!important;">
+            @menu.Title
+        </h1>
+    </div>
+    <div class="main">
+        <div class="row" style="margin-bottom: 30px; border-bottom: 0px none;">
+            
+            <div class="col-md-6 col-sm-4 col-xs-12"><img alt="@Model.Tour.Title" src="@Model.Tour.Image" style="width: 100%"></div>
+            <div class="col-md-6 col-sm-8 col-xs-12">
+                <h2 id="tourname">@Model.Tour.Title</h2>
+                @Html.Raw(Model.Tour.Description)
+            </div>
+        </div>
+
+        <div class="home-des">
+            @if (Model.TabTours.Count > 1 || Model.TourGalleries.Count > 0)
+            {
+                defaultTab = Model.TabTours.Count > 0 ? Model.TabTours[0].TitleTab : "";
+                defaultTab = StringHelper.ConvertToAlias(defaultTab);
+               
+                <div id="tabbed-nav">
+                   
+                    <!-- Tab Navigation Menu, to have seo friendly hashtags, add data-link attribute to each li tag and give it a unique id to apear in the url-->
+                    <ul>
+                        @foreach (var itemTab in Model.TabTours)
+                        {
+                            <li data-link="@StringHelper.ConvertToAlias(itemTab.TitleTab)"><a>@itemTab.TitleTab</a></li>
+                        }
+                        <li data-link="Gallery"><a>Gallery</a></li>
+                        <li data-link="booking"><a>@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "BookNow")</a></li>
+                    </ul>
+
+                    <!-- Content container -->
+                    <div>
+                        @foreach (var itemTab in Model.TabTours)
+                        {
+                            <div>
+                                @Html.Raw(itemTab.Content)
+                            </div>
+                        }
+                        <div>
+                            <div id="ts-portfolio" style="margin-bottom: 20px;">
+                                <div class="row ">
+                                    @foreach (var item in Model.TourGalleries)
+                                    {
+
+                                        <div class="col-sm-3" style="margin-bottom: 25px;">
+                                            <a class="pfzoom" href="@item.LargeImage" data-rel="prettyPhoto[mixed]" rel="prettyPhoto[mixed]">
+                                                <img src="@item.SmallImage" width="100%">
+                                            </a>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-horizontal">
+                                <form action="/BookTour/SendBooking" id="book-tour" method="post" class="form-horizontal">
+                                    <input type="hidden" name="ID" value="@Model.Tour.ID" />
+                                    <input type="hidden" name="InfoBooking" value="@Model.Tour.Title" />
+                                   
+
+                                    <div style="padding-bottom: 20px;">
+                                        <h5 style="font-weight: 600;">@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "TourInformation")</h5>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "Gender"):*<span id="mstitle" style="color: red"></span></label>
+                                            <div class="col-sm-6">
+                                                <select id="title" name="Gender" class="form-control">
+                                                    <option value="Mr" class="ember-view" selected="selected">Mr</option>
+                                                    <option value="Ms" class="ember-view">Ms</option>
+                                                    <option value="Mrs" class="ember-view">Mrs</option>
+                                                    <option value="Dr" class="ember-view">Dr</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "FullName"):*<span id="msfirstname" style="color: red"></span></label>
+                                            <div class="col-sm-6">
+                                                <input id="FullName" type="text" name="FullName" maxlength="40" class="form-control" >
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">Email:*<span id="msemail" style="color: red"></span></label>
+                                            <div class="col-sm-6">
+                                                <input id="Email" type="email" name="Email" maxlength="50" class="form-control" >
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">Phone:<span id="msphone" style="color: red"></span><span class="note">(country + area code + number)</span></label>
+                                            <div class="col-sm-6">
+                                                <input id="Tel" type="text" name="Tel" maxlength="50" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "Country"):*<span id="mscountry" style="color: red"></span></label>
+                                            <div class="col-sm-6">
+                                                <select id="Country" name="Country" class="form-control">
+                                                    <option selected="selected" value="">Please Select</option>
+                                                    <option class="ember-view" value="Afghanistan">Afghanistan</option>
+                                                    <option class="ember-view" value="Aland Islands">Aland Islands</option>
+                                                    <option class="ember-view" value="Albania">Albania</option>
+                                                    <option class="ember-view" value="Algeria">Algeria</option>
+                                                    <option class="ember-view" value="American Samoa">American Samoa</option>
+                                                    <option class="ember-view" value="Andorra">Andorra</option>
+                                                    <option class="ember-view" value="Angola">Angola</option>
+                                                    <option class="ember-view" value="Anguilla/St Kitts">Anguilla/St Kitts</option>
+                                                    <option class="ember-view" value="Antarctica">Antarctica</option>
+                                                    <option class="ember-view" value="Antigua and Barbuda">Antigua and Barbuda</option>
+                                                    <option class="ember-view" value="Argentina">Argentina</option>
+                                                    <option class="ember-view" value="Armenia">Armenia</option>
+                                                    <option class="ember-view" value="Aruba">Aruba</option>
+                                                    <option class="ember-view" value="Australia">Australia</option>
+                                                    <option class="ember-view" value="Austria">Austria</option>
+                                                    <option class="ember-view" value="Azerbaijan">Azerbaijan</option>
+                                                    <option class="ember-view" value="Bahamas">Bahamas</option>
+                                                    <option class="ember-view" value="Bahrain">Bahrain</option>
+                                                    <option class="ember-view" value="Bangladesh">Bangladesh</option>
+                                                    <option class="ember-view" value="Barbados">Barbados</option>
+                                                    <option class="ember-view" value="Belarus">Belarus</option>
+                                                    <option class="ember-view" value="Belgium">Belgium</option>
+                                                    <option class="ember-view" value="Belize">Belize</option>
+                                                    <option class="ember-view" value="Benin">Benin</option>
+                                                    <option class="ember-view" value="Bermuda">Bermuda</option>
+                                                    <option class="ember-view" value="Bhutan">Bhutan</option>
+                                                    <option class="ember-view" value="Bolivia">Bolivia</option>
+                                                    <option class="ember-view" value="Bonaire,Saba,St Eustatius">Bonaire,Saba,St Eustatius</option>
+                                                    <option class="ember-view" value="Bosnia And Herzegovina">Bosnia And Herzegovina</option>
+                                                    <option class="ember-view" value="Botswana">Botswana</option>
+                                                    <option class="ember-view" value="Bouvet Island">Bouvet Island</option>
+                                                    <option class="ember-view" value="Brazil">Brazil</option>
+                                                    <option class="ember-view" value="British Indian Ocean Territory">British Indian Ocean Territory</option>
+                                                    <option class="ember-view" value="Brunei Darussalam">Brunei Darussalam</option>
+                                                    <option class="ember-view" value="Bulgaria">Bulgaria</option>
+                                                    <option class="ember-view" value="Burkina Fasa">Burkina Fasa</option>
+                                                    <option class="ember-view" value="Burundi">Burundi</option>
+                                                    <option class="ember-view" value="Cambodia">Cambodia</option>
+                                                    <option class="ember-view" value="Cameroon">Cameroon</option>
+                                                    <option class="ember-view" value="Canada">Canada</option>
+                                                    <option class="ember-view" value="Cape Verde">Cape Verde</option>
+                                                    <option class="ember-view" value="Cayman Islands">Cayman Islands</option>
+                                                    <option class="ember-view" value="Central African Republic">Central African Republic</option>
+                                                    <option class="ember-view" value="Chad">Chad</option>
+                                                    <option class="ember-view" value="Chile">Chile</option>
+                                                    <option class="ember-view" value="China">China</option>
+                                                    <option class="ember-view" value="Christmas Island">Christmas Island</option>
+                                                    <option class="ember-view" value="Cocos (Keeling) Islands">Cocos (Keeling) Islands</option>
+                                                    <option class="ember-view" value="Colombia">Colombia</option>
+                                                    <option class="ember-view" value="Comoros">Comoros</option>
+                                                    <option class="ember-view" value="Congo">Congo</option>
+                                                    <option class="ember-view" value="Congo, The Democratic Republic of the">Congo, The Democratic Republic of the</option>
+                                                    <option class="ember-view" value="Cook Island">Cook Island</option>
+                                                    <option class="ember-view" value="Costa Rica">Costa Rica</option>
+                                                    <option class="ember-view" value="Cote D'Ivoire">Cote D'Ivoire</option>
+                                                    <option class="ember-view" value="Croatia">Croatia</option>
+                                                    <option class="ember-view" value="Cuba">Cuba</option>
+                                                    <option class="ember-view" value="Curacao">Curacao</option>
+                                                    <option class="ember-view" value="Cyprus">Cyprus</option>
+                                                    <option class="ember-view" value="Czech Republic">Czech Republic</option>
+                                                    <option class="ember-view" value="Denmark">Denmark</option>
+                                                    <option class="ember-view" value="Djibouti">Djibouti</option>
+                                                    <option class="ember-view" value="Dominica">Dominica</option>
+                                                    <option class="ember-view" value="Dominican Republic">Dominican Republic</option>
+                                                    <option class="ember-view" value="Ecuador">Ecuador</option>
+                                                    <option class="ember-view" value="Egypt">Egypt</option>
+                                                    <option class="ember-view" value="El Salvador">El Salvador</option>
+                                                    <option class="ember-view" value="Equatorial Guinea">Equatorial Guinea</option>
+                                                    <option class="ember-view" value="Eritrea">Eritrea</option>
+                                                    <option class="ember-view" value="Estonia">Estonia</option>
+                                                    <option class="ember-view" value="Ethiopia">Ethiopia</option>
+                                                    <option class="ember-view" value="Falkland Islands">Falkland Islands</option>
+                                                    <option class="ember-view" value="Faroe Islands">Faroe Islands</option>
+                                                    <option class="ember-view" value="Fiji">Fiji</option>
+                                                    <option class="ember-view" value="Finland">Finland</option>
+                                                    <option class="ember-view" value="France">France</option>
+                                                    <option class="ember-view" value="French Guiana">French Guiana</option>
+                                                    <option class="ember-view" value="French Polynesia">French Polynesia</option>
+                                                    <option class="ember-view" value="French Souther Territories">French Souther Territories</option>
+                                                    <option class="ember-view" value="Gabon">Gabon</option>
+                                                    <option class="ember-view" value="Gambia">Gambia</option>
+                                                    <option class="ember-view" value="Georgia">Georgia</option>
+                                                    <option class="ember-view" value="Germany">Germany</option>
+                                                    <option class="ember-view" value="Ghana">Ghana</option>
+                                                    <option class="ember-view" value="Gibraltar">Gibraltar</option>
+                                                    <option class="ember-view" value="Greece">Greece</option>
+                                                    <option class="ember-view" value="Greenland">Greenland</option>
+                                                    <option class="ember-view" value="Grenada">Grenada</option>
+                                                    <option class="ember-view" value="Guadeloupe">Guadeloupe</option>
+                                                    <option class="ember-view" value="Guam">Guam</option>
+                                                    <option class="ember-view" value="Guatemala">Guatemala</option>
+                                                    <option class="ember-view" value="Guernsey">Guernsey</option>
+                                                    <option class="ember-view" value="Guinea">Guinea</option>
+                                                    <option class="ember-view" value="Guinea Bissau">Guinea Bissau</option>
+                                                    <option class="ember-view" value="Guyana">Guyana</option>
+                                                    <option class="ember-view" value="Haiti">Haiti</option>
+                                                    <option class="ember-view" value="Heard Island and McDonald Islands">Heard Island and McDonald Islands</option>
+                                                    <option class="ember-view" value="Holy See (Vatican City State)">Holy See (Vatican City State)</option>
+                                                    <option class="ember-view" value="Honduras">Honduras</option>
+                                                    <option class="ember-view" value="Hong Kong">Hong Kong</option>
+                                                    <option class="ember-view" value="Hungary">Hungary</option>
+                                                    <option class="ember-view" value="Iceland">Iceland</option>
+                                                    <option class="ember-view" value="India">India</option>
+                                                    <option class="ember-view" value="Indonesia">Indonesia</option>
+                                                    <option class="ember-view" value="Iran, Islamic Republic of">Iran, Islamic Republic of</option>
+                                                    <option class="ember-view" value="Iraq">Iraq</option>
+                                                    <option class="ember-view" value="Ireland">Ireland</option>
+                                                    <option class="ember-view" value="Isle Of Man">Isle Of Man</option>
+                                                    <option class="ember-view" value="Israel">Israel</option>
+                                                    <option class="ember-view" value="Italy">Italy</option>
+                                                    <option class="ember-view" value="Jamaica">Jamaica</option>
+                                                    <option class="ember-view" value="Japan">Japan</option>
+                                                    <option class="ember-view" value="Jersey">Jersey</option>
+                                                    <option class="ember-view" value="Jordan">Jordan</option>
+                                                    <option class="ember-view" value="Kazakhstan">Kazakhstan</option>
+                                                    <option class="ember-view" value="Kenya">Kenya</option>
+                                                    <option class="ember-view" value="Kiribati">Kiribati</option>
+                                                    <option class="ember-view" value="Korea, Republic Of">Korea, Republic Of</option>
+                                                    <option class="ember-view" value="Korea,Democratic People's Republic of">Korea,Democratic People's Republic of</option>
+                                                    <option class="ember-view" value="Kuwait">Kuwait</option>
+                                                    <option class="ember-view" value="Kyrgzstan">Kyrgzstan</option>
+                                                    <option class="ember-view" value="Lao People's Democratic Republic">Lao People's Democratic Republic</option>
+                                                    <option class="ember-view" value="Latvia">Latvia</option>
+                                                    <option class="ember-view" value="Lebanon">Lebanon</option>
+                                                    <option class="ember-view" value="Lesotho">Lesotho</option>
+                                                    <option class="ember-view" value="Liberia">Liberia</option>
+                                                    <option class="ember-view" value="Libyan Arab Jamahiriya">Libyan Arab Jamahiriya</option>
+                                                    <option class="ember-view" value="Liechtenstein">Liechtenstein</option>
+                                                    <option class="ember-view" value="Lithuania">Lithuania</option>
+                                                    <option class="ember-view" value="Luxembourg">Luxembourg</option>
+                                                    <option class="ember-view" value="Macao">Macao</option>
+                                                    <option class="ember-view" value="Macedonia">Macedonia</option>
+                                                    <option class="ember-view" value="Madagascar">Madagascar</option>
+                                                    <option class="ember-view" value="Malawi">Malawi</option>
+                                                    <option class="ember-view" value="Malaysia">Malaysia</option>
+                                                    <option class="ember-view" value="Maldives">Maldives</option>
+                                                    <option class="ember-view" value="Mali">Mali</option>
+                                                    <option class="ember-view" value="Malta">Malta</option>
+                                                    <option class="ember-view" value="Marshall Islands">Marshall Islands</option>
+                                                    <option class="ember-view" value="Martinique">Martinique</option>
+                                                    <option class="ember-view" value="Mauritania">Mauritania</option>
+                                                    <option class="ember-view" value="Mauritius">Mauritius</option>
+                                                    <option class="ember-view" value="Mayotte">Mayotte</option>
+                                                    <option class="ember-view" value="Mexico">Mexico</option>
+                                                    <option class="ember-view" value="Micronesia, Federated States of">Micronesia, Federated States of</option>
+                                                    <option class="ember-view" value="Moldova, Republic of">Moldova, Republic of</option>
+                                                    <option class="ember-view" value="Monaco">Monaco</option>
+                                                    <option class="ember-view" value="Mongolia">Mongolia</option>
+                                                    <option class="ember-view" value="Montenegro">Montenegro</option>
+                                                    <option class="ember-view" value="Montserrat">Montserrat</option>
+                                                    <option class="ember-view" value="Morocco">Morocco</option>
+                                                    <option class="ember-view" value="Mozambique">Mozambique</option>
+                                                    <option class="ember-view" value="Myanmar">Myanmar</option>
+                                                    <option class="ember-view" value="Namibia">Namibia</option>
+                                                    <option class="ember-view" value="Nauru">Nauru</option>
+                                                    <option class="ember-view" value="Nepal">Nepal</option>
+                                                    <option class="ember-view" value="Netherlands">Netherlands</option>
+                                                    <option class="ember-view" value="Netherlands Antilles">Netherlands Antilles</option>
+                                                    <option class="ember-view" value="New Caledonia">New Caledonia</option>
+                                                    <option class="ember-view" value="New Zealand">New Zealand</option>
+                                                    <option class="ember-view" value="Nicaragua">Nicaragua</option>
+                                                    <option class="ember-view" value="Niger">Niger</option>
+                                                    <option class="ember-view" value="Nigeria">Nigeria</option>
+                                                    <option class="ember-view" value="Niue">Niue</option>
+                                                    <option class="ember-view" value="Norfolk Island">Norfolk Island</option>
+                                                    <option class="ember-view" value="Northern Mariana Islands">Northern Mariana Islands</option>
+                                                    <option class="ember-view" value="Norway">Norway</option>
+                                                    <option class="ember-view" value="Oman">Oman</option>
+                                                    <option class="ember-view" value="Pakistan">Pakistan</option>
+                                                    <option class="ember-view" value="Palau">Palau</option>
+                                                    <option class="ember-view" value="Palestinian Territory, Occupied">Palestinian Territory, Occupied</option>
+                                                    <option class="ember-view" value="Panama">Panama</option>
+                                                    <option class="ember-view" value="Papua New Guinea">Papua New Guinea</option>
+                                                    <option class="ember-view" value="Paraguay">Paraguay</option>
+                                                    <option class="ember-view" value="Peru">Peru</option>
+                                                    <option class="ember-view" value="Philippines">Philippines</option>
+                                                    <option class="ember-view" value="Pitcairn">Pitcairn</option>
+                                                    <option class="ember-view" value="Poland">Poland</option>
+                                                    <option class="ember-view" value="Portugal">Portugal</option>
+                                                    <option class="ember-view" value="Puerto Rico">Puerto Rico</option>
+                                                    <option class="ember-view" value="Qatar">Qatar</option>
+                                                    <option class="ember-view" value="Reunion">Reunion</option>
+                                                    <option class="ember-view" value="Romania">Romania</option>
+                                                    <option class="ember-view" value="Russia">Russia</option>
+                                                    <option class="ember-view" value="Rwanda">Rwanda</option>
+                                                    <option class="ember-view" value="Saint Barthélemy">Saint Barthélemy</option>
+                                                    <option class="ember-view" value="Saint Helena">Saint Helena</option>
+                                                    <option class="ember-view" value="Saint Kitts and Nevis">Saint Kitts and Nevis</option>
+                                                    <option class="ember-view" value="Saint Lucia">Saint Lucia</option>
+                                                    <option class="ember-view" value="Saint Martin">Saint Martin</option>
+                                                    <option class="ember-view" value="Saint Pierre And Miquelon">Saint Pierre And Miquelon</option>
+                                                    <option class="ember-view" value="Saint Vincent And The Grenadines">Saint Vincent And The Grenadines</option>
+                                                    <option class="ember-view" value="Samoa">Samoa</option>
+                                                    <option class="ember-view" value="San Marino">San Marino</option>
+                                                    <option class="ember-view" value="Sao Tome and Principe">Sao Tome and Principe</option>
+                                                    <option class="ember-view" value="Saudi Arabia">Saudi Arabia</option>
+                                                    <option class="ember-view" value="Senegal">Senegal</option>
+                                                    <option class="ember-view" value="Serbia">Serbia</option>
+                                                    <option class="ember-view" value="Seychelles">Seychelles</option>
+                                                    <option class="ember-view" value="Sierra Leone">Sierra Leone</option>
+                                                    <option class="ember-view" value="Singapore">Singapore</option>
+                                                    <option class="ember-view" value="Sint Maarten">Sint Maarten</option>
+                                                    <option class="ember-view" value="Slovakia">Slovakia</option>
+                                                    <option class="ember-view" value="Slovenia">Slovenia</option>
+                                                    <option class="ember-view" value="Solomon Islands">Solomon Islands</option>
+                                                    <option class="ember-view" value="Somalia">Somalia</option>
+                                                    <option class="ember-view" value="South Africa">South Africa</option>
+                                                    <option class="ember-view" value="South Georgia and the South Sandwich Islands">South Georgia and the South Sandwich Islands</option>
+                                                    <option class="ember-view" value="Spain">Spain</option>
+                                                    <option class="ember-view" value="Sri Lanka">Sri Lanka</option>
+                                                    <option class="ember-view" value="Sudan">Sudan</option>
+                                                    <option class="ember-view" value="Suriname">Suriname</option>
+                                                    <option class="ember-view" value="Svalbard and Jan Mayen">Svalbard and Jan Mayen</option>
+                                                    <option class="ember-view" value="Swaziland">Swaziland</option>
+                                                    <option class="ember-view" value="Sweden">Sweden</option>
+                                                    <option class="ember-view" value="Switzerland">Switzerland</option>
+                                                    <option class="ember-view" value="Syria Arab Republic">Syria Arab Republic</option>
+                                                    <option class="ember-view" value="Taiwan">Taiwan</option>
+                                                    <option class="ember-view" value="Tajikistan">Tajikistan</option>
+                                                    <option class="ember-view" value="Tanzania, United Republic of">Tanzania, United Republic of</option>
+                                                    <option class="ember-view" value="Thailand">Thailand</option>
+                                                    <option class="ember-view" value="Timor-Leste">Timor-Leste</option>
+                                                    <option class="ember-view" value="Togo">Togo</option>
+                                                    <option class="ember-view" value="Tokelau">Tokelau</option>
+                                                    <option class="ember-view" value="Tonga">Tonga</option>
+                                                    <option class="ember-view" value="Trinidad And Tobago">Trinidad And Tobago</option>
+                                                    <option class="ember-view" value="Tunisia">Tunisia</option>
+                                                    <option class="ember-view" value="Turkey">Turkey</option>
+                                                    <option class="ember-view" value="Turkmenistan">Turkmenistan</option>
+                                                    <option class="ember-view" value="Turks and Caicos Islands">Turks and Caicos Islands</option>
+                                                    <option class="ember-view" value="Tuvalu">Tuvalu</option>
+                                                    <option class="ember-view" value="Uganda">Uganda</option>
+                                                    <option class="ember-view" value="Ukraine">Ukraine</option>
+                                                    <option class="ember-view" value="United Arab Emirates">United Arab Emirates</option>
+                                                    <option class="ember-view" value="United Kingdom">United Kingdom</option>
+                                                    <option class="ember-view" value="United Nations">United Nations</option>
+                                                    <option class="ember-view" value="United States">United States</option>
+                                                    <option class="ember-view" value="United States Minor Outlying Islands">United States Minor Outlying Islands</option>
+                                                    <option class="ember-view" value="Unknown">Unknown</option>
+                                                    <option class="ember-view" value="Uruguay">Uruguay</option>
+                                                    <option class="ember-view" value="Uzbekistan">Uzbekistan</option>
+                                                    <option class="ember-view" value="Vanuatu">Vanuatu</option>
+                                                    <option class="ember-view" value="Venezuela">Venezuela</option>
+                                                    <option class="ember-view" value="Vietnam">Vietnam</option>
+                                                    <option class="ember-view" value="Virgin Islands, British">Virgin Islands, British</option>
+                                                    <option class="ember-view" value="Virgin Islands, US">Virgin Islands, US</option>
+                                                    <option class="ember-view" value="Wallis and Futuna">Wallis and Futuna</option>
+                                                    <option class="ember-view" value="Western Sahara">Western Sahara</option>
+                                                    <option class="ember-view" value="Yemen">Yemen</option>
+                                                    <option class="ember-view" value="Yugoslavia">Yugoslavia</option>
+                                                    <option class="ember-view" value="Zambia">Zambia</option>
+                                                    <option class="ember-view" value="Zimbabwe">Zimbabwe</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <h5 style="font-weight: 600;">@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "YourRequests")</h5>
+                                        <div class="form-group DepartureDate" style="position: relative;">
+                                            <label class="col-sm-4 control-label">@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "Departure"):<span id="msdeparturedate" style="color: red"></span></label>
+                                            <div class="col-sm-6">
+                                                <div class="box-cal">
+                                                    <input id="Departure" class="form-control input-sm checkdate hasDatepicker" placeholder="MM/DD/YYYY" name="Departure" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "OrtherRequest"):<span id="msRequests" style="color: red"></span></label>
+                                            <div class="col-sm-6">
+                                                <textarea name="Content" maxlength="500" rows="5" class="form-control" id="Content"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label"></label>
+                                        <div class="col-sm-6">
+                                            <input type="submit" value="@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "Send")" class="button" id="cmdSignUp">
+                                            <div id="mesg" style="color: red;"></div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            }
+            else if (Model.TabTours.Count == 1)
+            {
+                @Html.Raw(Model.TabTours[0].Content)
+            }
+            <div class="clear"></div>
+        </div>
+
+        @if (Model.Tours.Count > 0)
+        {
+            <div class="widget tour-home other-tour" style="margin: 20px 0 10px 0;">
+                <h5 class="other-title"> @GetLanguage.Language(Request.Cookies["LanguageID"].Value, "OtherTours")</h5>
+                <div class="row">
+                    @foreach (var item in Model.Tours.Where(a=>a.MenuID==menu.ID))
+                    {
+                        <div class="col-md-6 col-sm-12 wow fadeInDown animated animated" style="visibility: visible; animation-name: fadeInDown;">
+                            <div class="single_comments">
+                                <a title="Deluxe room" href="/@item.MenuAlias/@item.ID/@item.Alias">
+                                    <img alt="Deluxe room" src="@item.Image">
+                                </a>
+                                <p>
+                                    <a title="Deluxe room" href="/@item.MenuAlias/@item.ID/@item.Alias">@item.Title</a>
+                                </p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@Html.Partial("Comment/SiteBar")
+<div id="wraploadding">
+    <div id="imgloadding"><img src="/Areas/Administrator/Content/img/ajax-loader.gif" alt="loading" /></div>
+</div>
+
+<script>
+    jQuery(document).ready(function ($) {
+        /* jQuery activation and setting options for the tabs, also setting the the following:
+    - deeplinking: for deep-linking
+    - defaultTab: change it to one the new tab id*/
+        $("#tabbed-nav").zozoTabs({
+            theme: "silver",
+            position: "top-left",
+            orientation: "horizontal",
+            deeplinking: true,
+            defaultTab: '@defaultTab'
+        });
+
+        jQuery("a[rel^='prettyPhoto']").prettyPhoto({ animationSpeed: 'slow', theme: 'pp_default', gallery_markup: '', slideshow: 2000, social_tools: '' });
+    });
+</script>
+
+<script>
+    function LoadingSendEmail() {
+        $("#wraploadding").show();
+        $("#wraploadding").css("width", $(window).width());
+        $("#wraploadding").css("height", $(window).height());
+        $("#imgloadding").css("top", ($(window).height() / 2) - 80);
+    }
+
+    $(function () {
+        $("#Departure").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            minDate: new Date()
+        });
+    });
+
+
+    //validate
+    jQuery.validator.setDefaults({
+        debug: true,
+        success: "valid"
+    });
+    $("#book-tour").validate({
+        rules: {
+            'Departure': {
+                required: true,
+                date: true
+            },
+            'Gender': {
+                required: true,
+            },
+            'FullName': {
+                required: true,
+            },
+            'Country': {
+                required: true,
+            },
+            'Email': {
+                required: true,
+                email: true
+            },
+        },
+        messages: {
+            'Departure': "Please enter Departure(MM/DD/YYYY)",
+            'Gender': "Please select Gender",
+            'FullName': "Please enter First Name",
+            'Country': "Please select Country",
+            'Email': "Please enter Email Adress",
+
+        },
+        submitHandler: function (form) {
+            form.submit();
+            LoadingSendEmail();
+        }
+    });
+</script>
+

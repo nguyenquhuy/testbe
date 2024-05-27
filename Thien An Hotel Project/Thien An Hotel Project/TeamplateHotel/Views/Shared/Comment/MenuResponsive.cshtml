@@ -1,0 +1,82 @@
+﻿@using ProjectLibrary.Config
+@using ProjectLibrary.Database
+@using TeamplateHotel.Controllers
+@{
+    List<Menu> menus = CommentController.GetMainMenus(Request.Cookies["LanguageID"].Value);
+    string alias = "";
+    List<Language> languages = CommentController.GetLanguages();
+}
+
+<div class="gdlr-responsive-navigation dl-menuwrapper" id="gdlr-responsive-navigation">
+    <button class="dl-trigger">Open Menu</button>
+    <ul id="menu-main-menu" class="dl-menu gdlr-main-mobile-menu">
+        @foreach (var item in menus.Where(a => a.ParentID == 0).OrderBy(a => a.Index).ToList())
+        {
+            var menuChilds = menus.Where(a => a.ParentID == item.ID).OrderBy(a => a.Index).ToList();
+            if (menuChilds.Count > 0)
+            {
+                alias = "javascript:void(0)";
+                <li id="menu-item-4128" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children">
+                    <a href="@alias">@item.Title</a>
+                    <ul class="dl-submenu">
+                        @foreach (var itemChild in menuChilds)
+                        {
+                            var menuChilds2 = menus.Where(a => a.ParentID == itemChild.ID).OrderBy(a => a.Index).ToList();
+                            if (menuChilds2.Count > 0)
+                            {
+                                alias = "javascript:void(0)";
+                                <li id="menu-item-4001" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children">
+                                    <a href="@alias">@itemChild.Title</a>
+                                    <ul class="dl-submenu">
+                                        @foreach (var itemchild2 in menuChilds2)
+                                        {
+                                            if (item.Type == SystemMenuType.OutSite)
+                                            {
+                                                <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="@itemchild2.Link" target="_blank">@itemchild2.Title</a></li>
+                                            }
+                                            else
+                                            {
+                                                <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/@itemchild2.Alias">@itemchild2.Title</a></li>
+                                            }
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                            else
+                            {
+                                if (item.Type == SystemMenuType.OutSite)
+                                {
+                                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="@itemChild.Link" target="_blank">@itemChild.Title</a></li>
+                                }
+                                else
+                                {
+                                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/@itemChild.Alias">@itemChild.Title</a></li>
+                                }
+
+                            }
+                        }
+                    </ul>
+                </li>
+            }
+            else
+            {
+                if (item.Type == SystemMenuType.OutSite)
+                {
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item current_page_item"><a href="@item.Link" target="_blank">@item.Title</a></li>
+                }
+                else
+                {
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item current_page_item"><a href="@item.Alias">@item.Title</a></li>
+                }
+            }
+        }
+       
+        <li class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item current_page_item">
+            @foreach (var item in languages)
+            {
+                <a href="/SelectLanguge/@item.ID" target="_blank"><img src="@item.Icon" alt="@item.Name" style="display: block;margin-right: 20px;"></a>
+            }
+        </li>
+       
+    </ul>
+</div>

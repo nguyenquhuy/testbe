@@ -1,0 +1,364 @@
+﻿@using ProjectLibrary.Config
+@using ProjectLibrary.Database
+@using TeamplateHotel.Controllers
+@using TeamplateHotel.Handler
+@{
+    var hotel = CommentController.DetailHotel(Request.Cookies["LanguageID"].Value);
+    List<Menu> SecondMenus = CommentController.GetSecondMenus(Request.Cookies["LanguageID"].Value);
+    List<Menu> menus = CommentController.GetMainMenus(Request.Cookies["LanguageID"].Value);
+    Menu menu = ViewBag.Menu ?? new Menu();
+    List<Slider> sliders = CommentController.GetListSlider(Request.Cookies["LanguageID"].Value, menu.ID);
+    Plugin plugin = CommentController.GetPluigPlugin();
+    List<Language> languages = CommentController.GetLanguages();
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.MetaTitle</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="SHORTCUT ICON" href="~/favicon.ico">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta id="description" name="description" content="@ViewBag.MetaDescription">
+
+    <link href="/Content/Styles/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Barlow:300,300i,400,400i,500,600,700" rel="stylesheet">
+    <link href="/Content/Styles/animate.min.css" rel="stylesheet">
+    <link href="/Content/Styles/main.css" rel="stylesheet">
+    <link href="/Content/Styles/responsive.css" rel="stylesheet">
+    <link href="~/Plugins/Slider/flexslider/flexslider.css" rel="stylesheet" />
+    <link href="/Content/Styles/bootstrap-datepicker3.min.css" rel="stylesheet">
+    <link href="/Content/jquery-ui/sunny.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/Content/Styles/jquery.fancybox.css" media="screen">
+    
+    <script src="~/Scripts/jquery.min.js"></script>
+
+    <style type="text/css">
+        .fancybox-margin {
+            margin-right: 17px;
+        }
+    </style>
+    @if (Request.Cookies["LanguageID"].Value == "vi")
+    {
+        <style>
+            html, body, a,p,div,h1,h2,h3,h4,h5 {
+                font-family: 'Roboto', sans-serif!important;
+            }
+        </style>
+    }
+
+    <!--Add Css-->
+    @Html.Raw(plugin.CSS)
+    <!-- Add JS -->
+    @Html.Raw(plugin.JS)
+    
+</head>
+<body class="homepage" cz-shortcut-listen="true">
+    <header id="header" class="">
+        <div class="top-bar" style="display: block;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 top-number mb-align" style="text-align:left;">
+                        <div class="hotline">
+                            <i class="fa fa-phone"></i> Hotline: <a href="tel: @hotel.Hotline">@hotel.Hotline</a>
+                            @if (languages.Count > 1)
+                            {
+
+                                foreach (var language in languages)
+                                {
+                                    <span class="langueage-icon"><a href="/SelectLanguge/@language.ID"><img src="@language.Icon" /></a></span>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div class="col-md-4 right" style="text-align:right;">
+                        <div class="top-menu">
+                            <ul class="about-links">
+                                <li class="hid-cont icon-social">
+                                    <a href="@hotel.Facebook" title="facebook" target="_blank" class="facebook">
+                                        <i class="fa fa-facebook-square" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li class="hid-cont icon-social">
+                                    <a href="@hotel.Tripadvisor" title="tripadvisor" target="_blank" class="youtobe">
+                                        <i class="fa fa-tripadvisor" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li class="hid-cont"><a href="/location-map" title="Location &amp; Map"><i class="fa fa-map-marker"></i>@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "LocationMap")</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row" style="position:relative;">
+                <div class="logo">
+
+                    <a title="@hotel.Name" href="/" class="blogo" style="display: block;">
+                        <img class="" src="@hotel.Logo" width="%" height=""/>
+                    </a>
+                </div>
+ 
+                <nav class="navbar navbar-inverse">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <i class="fa fa-bars"></i>
+                        <span>Menu</span>
+                    </button>
+                    <div class="collapse navbar-collapse">
+                        @*<div class="navbar-left">
+                            <ul class="navbar-nav">
+                                @foreach (var item in menus.OrderBy(a => a.Index).Where(a => a.ParentID == 0).Take(4))
+                                {
+                                    var menuChilds = menus.Where(a => a.ParentID == item.ID).OrderBy(a => a.Index).ToList();
+                                    if (menuChilds.Count > 0)
+                                    {
+                                        if (item.Type != 7)
+                                        {
+                                            item.Alias = "javascript:void(0)";
+                                            <li class="dropdown our-hotels">
+                                                <a href="@item.Alias" title="@item.Title">@item.Title</a>
+                                                <ul class="dropdown-menu">
+                                                    @foreach (var menuChild in menuChilds)
+                                                    {
+                                                        if (menuChild.Type == SystemMenuType.OutSite)
+                                                        {
+                                                            <li><a href="@menuChild.Link" title="@menuChild.Title" target="_blank">@menuChild.Title</a></li>
+                                                        }
+                                                        else
+                                                        {
+                                                            <li><a href="/@menuChild.Alias" title="@menuChild.Title">@menuChild.Title</a></li>
+                                                        }
+
+                                                    }
+                                                </ul>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li><a href="/@item.Alias" title="@item.Title">@item.Title</a></li>
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        if (item.Type == SystemMenuType.OutSite)
+                                        {
+                                            <li><a href="@item.Link" title="@item.Title" target="_blank">@item.Title</a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a href="/@item.Alias" title="@item.Title">@item.Title</a></li>
+                                        }
+                                    }
+
+                                }
+                            </ul>
+                        </div>*@
+
+                        <div class="navbar-right">
+                            <ul class="navbar-nav">
+                                @foreach (var item in menus.Where(a => a.ParentID == 0 && a.Status==true).OrderBy(a => a.Index))
+                                {
+                                    var menuChilds = menus.Where(a => a.ParentID == item.ID).OrderBy(a => a.Index).ToList();
+                                    if (menuChilds.Count > 0)
+                                    {
+                                        item.Alias = "javascript:void(0)";
+                                        <li class="dropdown our-hotels">
+                                            <a href="@item.Alias" title="@item.Title">@item.Title</a>
+                                            <ul class="dropdown-menu">
+                                                @foreach (var menuChild in menuChilds)
+                                                {
+                                                    if (menuChild.Type == SystemMenuType.OutSite)
+                                                    {
+                                                        <li><a href="@menuChild.Link" title="@menuChild.Title" target="_blank">@menuChild.Title</a></li>
+                                                    }
+                                                    else
+                                                    {
+                                                        <li><a href="/@menuChild.Alias" title="@menuChild.Title">@menuChild.Title</a></li>
+                                                    }
+                                                }
+                                            </ul>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        if (item.Type == SystemMenuType.OutSite)
+                                        {
+                                            <li><a href="@item.Link" title="@item.Title" target="_blank">@item.Title</a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a href="/@item.Alias" title="@item.Title">@item.Title</a></li>
+                                        }
+                                    }
+
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+
+    <section id="main-slider" class="no-margin slider-home">
+        <div class="flexslider">
+            <ul class="slides">
+                @foreach (var item in sliders)
+                {
+                    <li>
+                        <img src="@item.Image">
+                        @if (string.IsNullOrEmpty(item.Content) == false)
+                        {
+                            <div class="slide-caption">
+                                <h3>@item.Title</h3>
+                                <p>
+                                    @Html.Raw(item.Content)
+                                </p>
+                                <a class="btn detail-btn" href="@item.Link">@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "ViewDetail")</a>
+                            </div>
+                        }
+                    </li>
+                }
+            </ul>
+        </div>
+    </section>
+
+    <section class="wow fadeInUp animated" style="padding: 50px 0px 50px; visibility: visible; animation-name: fadeInUp; background: #fff">
+        <div class="container">
+            <div class="row">
+                @RenderBody()
+            </div>
+        </div>
+    </section>
+    @if (ViewBag.Home == true)
+    {
+        @Html.Partial("Comment/Service");
+    }
+
+    <footer id="footer" class="midnight-blue wow fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;">
+        <div class="footer-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <h4>@hotel.Name</h4>
+                                <hr class="small">
+                                <p>@hotel.Address</p>
+                                <p><label>Phone: </label><span> @hotel.Tel</span> - <label>Fax: </label><span> @hotel.Fax</span></p>
+                                <p><label>Email: </label><span><a href="mailto:@hotel.Email" title="@hotel.Email">@hotel.Email</a></span></p>
+                            </div>
+                            @foreach (var secondMenu in SecondMenus.Where(a => a.ParentID == 0).OrderBy(a=>a.Index))
+                            {
+                                List<Menu> menuChilds = SecondMenus.Where(a => a.ParentID == secondMenu.ID).OrderBy(a=>a.Index).ToList();
+                                <div class="col-md-2 col-sm-6 col-xs-12">
+                                    <h4>@secondMenu.Title</h4>
+                                    <hr class="small">
+                                    <ul>
+                                        @foreach (var item in menuChilds)
+                                        {
+                                            <li><a href="/@item.Alias" title="">@item.Title</a></li>
+                                        }
+                                    </ul>
+                                </div>
+                            }
+                            <div class="col-md-2 col-sm-6 col-xs-12 footer-contact-box">
+                                <p> power by <a href="http://webhotel.vn" target ="_blank">webhotel.vn</a></p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+               
+            </div>
+        </div>
+    </footer>
+    
+    
+    <script type="text/javascript" src="/Scripts/Hotel/jquery.js"></script>
+        <script type="text/javascript" src="/Scripts/Hotel/jquery-ui.js"></script>
+    <script type="text/javascript" src="/Scripts/Hotel/bootstrap.min.js"></script>
+    <script src="~/Plugins/prettyphoto-master/js/jquery.prettyPhoto.js"></script>
+    <script src="/Scripts/Hotel/jquery.isotope.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/Scripts/Hotel/isotope.min.js"></script>
+    <script type="text/javascript" src="/Scripts/Hotel/jquery.fancybox.pack.js"></script>
+    <script type="text/javascript" src="/Scripts/Hotel/main.js"></script>
+    <script type="text/javascript" src="/Scripts/main.js"></script>
+    <script type="text/javascript" src="/Scripts/Hotel/wow.min.js"></script>
+    <script type="text/javascript" src="/Scripts/Hotel/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="/Scripts/Hotel/bootstrap-timepicker.js"></script>
+    <script type="text/javascript" src="/Scripts/Hotel/jquery.flexslider.js"></script>
+    <script type="text/javascript" src="/Scripts/Hotel/ekko-lightbox.js"></script>
+
+    <script src="~/Plugins/TabTour/Js/zozo.tabs.min.js"></script>
+    <script src="~/Plugins/prettyphoto-master/js/jquery.prettyPhoto.js"></script>
+    <script src="~/Plugins/OwlCarousel/owl.carousel.min.js"></script>
+
+    <script type="text/javascript">
+        $('.flexslider').flexslider();
+        $('.flexslider-post').flexslider({
+            animation: "slide",
+            animationLoop: true,
+            itemWidth: 247,
+            itemMargin: 0,
+            slideshow: false,
+            smoothHeight: true,
+            directionNav: true,
+            controlNav: false,
+            directionNav: false
+        });
+    </script>
+    <script type="text/javascript">
+        $(window).scroll(function () {
+            var top = jQuery(window).scrollTop();
+            if (top >= 220) {
+                jQuery("#header").addClass("header-docking");
+                jQuery(".blogo").css("display", "none");
+                jQuery(".slogo").css("display", "block");
+                jQuery(".top-bar").css("display", "none");
+            } else {
+                jQuery("#header").removeClass("header-docking");
+                jQuery(".blogo").css("display", "block");
+                jQuery(".slogo").css("display", "none");
+                jQuery(".top-bar").css("display", "block");
+            }
+        });
+    </script>
+    
+    <script>
+    $(document).ready(function () {
+        $("#owl-demo2").owlCarousel({
+            loop: false,
+            margin: 25,
+            responsiveClass: true,
+            autoplay: false,
+            dots: false,
+            nav: true,
+            navText: ['<span class="fa fa-angle-left"></span>', '<span class="fa fa-angle-right"></span>'],
+            items: 3, //10 items above 1000px browser width
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 2
+                },
+                1000: {
+                    items: 3
+                }
+            }
+        });
+    });
+    </script>
+</body>
+</html>

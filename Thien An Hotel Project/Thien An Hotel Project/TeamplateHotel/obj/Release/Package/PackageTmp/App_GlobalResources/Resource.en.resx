@@ -1,0 +1,318 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="Adults" xml:space="preserve">
+    <value>Adults</value>
+  </data>
+  <data name="ArrivalTime" xml:space="preserve">
+    <value>Arrival Time</value>
+  </data>
+  <data name="ArrivalWithFlight" xml:space="preserve">
+    <value>Arrival With Flight</value>
+  </data>
+  <data name="BookingTour" xml:space="preserve">
+    <value>Booking Tour</value>
+  </data>
+  <data name="BookNow" xml:space="preserve">
+    <value>Book Now</value>
+  </data>
+  <data name="CheckIn" xml:space="preserve">
+    <value>Check In</value>
+  </data>
+  <data name="CheckOut" xml:space="preserve">
+    <value>Check Out</value>
+  </data>
+  <data name="Child" xml:space="preserve">
+    <value>Child</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>City</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="Departure" xml:space="preserve">
+    <value>Departure</value>
+  </data>
+  <data name="Detail" xml:space="preserve">
+    <value>Detail</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="FullName" xml:space="preserve">
+    <value>Full Name</value>
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value>Gender</value>
+  </data>
+  <data name="Igree" xml:space="preserve">
+    <value>I read and agree with the  &lt;a href="javascript:void(0)" onclick="ShowCondition()"&gt;terms &amp; conditions&lt;/a&gt; of the </value>
+  </data>
+  <data name="MakeAReservation" xml:space="preserve">
+    <value>Make A Reservation</value>
+  </data>
+  <data name="MaxPeople" xml:space="preserve">
+    <value>Max People</value>
+  </data>
+  <data name="NameRooms" xml:space="preserve">
+    <value>Name Rooms</value>
+  </data>
+  <data name="OrtherRequest" xml:space="preserve">
+    <value>Orther Request</value>
+  </data>
+  <data name="OtherArticles" xml:space="preserve">
+    <value>Other Articles</value>
+  </data>
+  <data name="OtherRooms" xml:space="preserve">
+    <value>Other Rooms</value>
+  </data>
+  <data name="OtherTours" xml:space="preserve">
+    <value>Other Tours</value>
+  </data>
+  <data name="PriceNight" xml:space="preserve">
+    <value>Price Night</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Read More</value>
+  </data>
+  <data name="RequiredFields" xml:space="preserve">
+    <value>Required Fields</value>
+  </data>
+  <data name="SearchAvailability" xml:space="preserve">
+    <value>Search Availability</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="Smoking" xml:space="preserve">
+    <value>Smoking</value>
+  </data>
+  <data name="Tel" xml:space="preserve">
+    <value>Tel</value>
+  </data>
+  <data name="VIEWRATES" xml:space="preserve">
+    <value>VIEW RATES FOR ALL ROOMS HERE</value>
+  </data>
+  <data name="YourInformation" xml:space="preserve">
+    <value>Your Information</value>
+  </data>
+  <data name="InfoRoom" xml:space="preserve">
+    <value>Info Room</value>
+  </data>
+  <data name="Messages" xml:space="preserve">
+    <value>Messages</value>
+  </data>
+  <data name="Mr" xml:space="preserve">
+    <value>Mr</value>
+  </data>
+  <data name="Mrs" xml:space="preserve">
+    <value>Mrs</value>
+  </data>
+  <data name="Ms" xml:space="preserve">
+    <value>Ms</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="SelectCountry" xml:space="preserve">
+    <value>Select Country</value>
+  </data>
+  <data name="TeamsConditions" xml:space="preserve">
+    <value>Teams &amp; Conditions</value>
+  </data>
+  <data name="AboutUs" xml:space="preserve">
+    <value>About Us</value>
+  </data>
+  <data name="FollowUs" xml:space="preserve">
+    <value>Follow Us</value>
+  </data>
+  <data name="PowerBy" xml:space="preserve">
+    <value>power by</value>
+  </data>
+  <data name="BookTour" xml:space="preserve">
+    <value>Book Tour</value>
+  </data>
+  <data name="OtherServices" xml:space="preserve">
+    <value>Other Services</value>
+  </data>
+  <data name="ContactInformation" xml:space="preserve">
+    <value>Contact Information</value>
+  </data>
+  <data name="HotelMasterRooms" xml:space="preserve">
+    <value>Hotel Master's Rooms</value>
+  </data>
+  <data name="SocialMedia" xml:space="preserve">
+    <value>Social Media</value>
+  </data>
+  <data name="TripAdvisor" xml:space="preserve">
+    <value>TripAdvisor</value>
+  </data>
+  <data name="ViewAllRoom" xml:space="preserve">
+    <value>View All Rooms</value>
+  </data>
+  <data name="ViewDetail" xml:space="preserve">
+    <value>View Detail</value>
+  </data>
+  <data name="YourReservation" xml:space="preserve">
+    <value>Your Reservation</value>
+  </data>
+  <data name="ContactUs" xml:space="preserve">
+    <value>Contact Us</value>
+  </data>
+  <data name="LocationMap" xml:space="preserve">
+    <value>Location Map</value>
+  </data>
+  <data name="Accommodation" xml:space="preserve">
+    <value>Accommodation</value>
+  </data>
+  <data name="HOTELSERVICES" xml:space="preserve">
+    <value>OTHER SERVICES</value>
+  </data>
+  <data name="OnTripadvisor" xml:space="preserve">
+    <value>On Tripadvisor</value>
+  </data>
+  <data name="PACKAGESOFFERS" xml:space="preserve">
+    <value>PACKAGES &amp; OFFERS</value>
+  </data>
+  <data name="SPECIALPACKAGE" xml:space="preserve">
+    <value>SPECIAL PACKAGE</value>
+  </data>
+  <data name="TourInformation" xml:space="preserve">
+    <value>Tour Information</value>
+  </data>
+  <data name="Viewall" xml:space="preserve">
+    <value>View All</value>
+  </data>
+  <data name="ViewRoomDetails" xml:space="preserve">
+    <value>View Room Details</value>
+  </data>
+  <data name="YourRequests" xml:space="preserve">
+    <value>Your Requests</value>
+  </data>
+  <data name="CheckAvailability" xml:space="preserve">
+    <value>Check availability</value>
+  </data>
+  <data name="tttour" xml:space="preserve">
+    <value>TOUR INFORMATION</value>
+  </data>
+</root>

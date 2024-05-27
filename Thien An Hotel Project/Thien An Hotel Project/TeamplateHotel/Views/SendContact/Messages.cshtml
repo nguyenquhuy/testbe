@@ -1,0 +1,27 @@
+﻿@using TeamplateHotel.Handler
+@{
+    ViewBag.Title = "Messages";
+    Layout = "~/Views/Shared/_Layout_home.cshtml";
+}
+
+<div class="col-lg-9 col-md-8 col-sm-8">
+    <h1 class="main-title  wow fadeInDown animated animated" style="visibility: visible; animation-name: fadeInDown;">
+        @GetLanguage.Language(Request.Cookies["LanguageID"].Value, "Messages")
+    </h1>
+    <div class="content-main wow fadeInDown animated animated" style="visibility: visible; animation-name: fadeInDown;">
+        <div style="margin-top:15px; padding-top:15px; border-top:1px solid #dcdcdc;">
+            <section class="portfolio-section port-col" style="display: inline-block;">
+                <div class="isotopeContainer" style="position: relative; height: 0px;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong>@Html.Raw(ViewBag.Messages)</strong>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+@Html.Partial("Comment/SiteBar")
+

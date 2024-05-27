@@ -1,0 +1,39 @@
+﻿@using ProjectLibrary.Database
+@using TeamplateHotel.Handler
+@model TeamplateHotel.Models.DetailArticle
+@{
+    Layout = "~/Views/Shared/_Layout_home.cshtml";
+    Menu menu = ViewBag.Menu;
+}
+
+<div class="col-md-9 col-sm-6 col-xs-12">
+    <h1 class="color333 title uppercase mg-bottom-25">@Model.Article.Title</h1>
+    <div class="home-des">
+        @Html.Raw(Model.Article.Content)
+    </div>
+    @if (Model.Articles.Count > 0)
+    {
+        <div class="widget tour-home other-tour" style="margin: 20px 0 10px 0;">
+            <h5 class="other-title"> @GetLanguage.Language(Request.Cookies["LanguageID"].Value, "OtherArticles")</h5>
+            <div class="row">
+                @foreach (var item in Model.Articles)
+                {
+                    <div class="col-md-6 col-sm-12 wow fadeInDown animated animated" style="visibility: visible; animation-name: fadeInDown;">
+                        <div class="single_comments">
+                            <a title="Deluxe room" href="/@item.MenuAlias/@item.ID/@item.Alias">
+                                <img alt="Deluxe room" src="@item.Image">
+                            </a>
+                            <p>
+                                <a title="Deluxe room" href="/@item.MenuAlias/@item.ID/@item.Alias">@item.Title</a>
+                            </p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@Html.Partial("Comment/SiteBar")
+
+

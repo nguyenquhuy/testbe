@@ -1,0 +1,35 @@
+﻿@using ProjectLibrary.Database
+@using TeamplateHotel.Handler
+@model IEnumerable<Service>
+@{
+    Layout = "~/Views/Shared/_Layout_home.cshtml";
+    Menu menu = ViewBag.Menu ?? new Menu();
+}
+
+<div class="col-lg-9 col-md-8 col-sm-8">
+    <h1 class="main-title  wow fadeInDown animated animated" style="visibility: visible; animation-name: fadeInDown;">
+        @menu.Title
+    </h1>
+    @foreach (var item in Model)
+    {
+        <div class="tour-sum wow fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;">
+            <div class="row">
+
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <a title="O" class="thumbnail" href="/@item.MenuAlias/@item.ID/@item.Alias" style="position: relative;">
+                        <img alt="O" src="@item.Image">
+                    </a>
+                </div>
+                <div class="col-md-8 col-sm-8 col-xs-12">
+                    <h4 class="h4-title">
+                        <a title="O" href="/@item.MenuAlias/@item.ID/@item.Alias">@item.Title</a>
+                    </h4>
+                    <p>@Html.Raw(item.Description)</p>
+                    <span class="booking"><a href="/@item.MenuAlias/@item.ID/@item.Alias">@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "ViewDetail")</a></span>
+                </div>
+
+            </div>
+        </div>
+    }
+</div>
+@Html.Partial("Comment/SiteBar")
