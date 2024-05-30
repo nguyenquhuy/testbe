@@ -1,0 +1,151 @@
+﻿@using TeamplateHotel.Controllers
+@using ProjectLibrary.Database
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_home.cshtml";
+    ViewBag.Home = false;
+    List<FeedBack> feedbacks = CommentController.GetFeedback();
+}
+
+<!-- page title -->
+<div class="page-title container-fluid">
+    <div class="container" style="position: relative;">
+        <p class="title">About</p>
+        <p class="page-tree">
+            <span class="home"><a href="/">Home</a></span>
+            <span><i class="fa fa-angle-right"></i></span>
+            <span>About</span>
+        </p>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="container-fluid welcome">
+    <div class="container words">
+        <p class="title">Welcome to the Lake Inn!</p>
+        <div class="icon-title">
+            <img src="~/Content/img/img/icon-title.png">
+        </div>
+        <p class="short-des">We are pleased to be your premier breakfast and bed for rest, activities and nature on Beautiful Lake.</p>
+    </div>
+    <div class="container images">
+        <p class="short-des">We are pleased to be your premier breakfast and bed for rest, activities and nature on Beautiful Lake.</p>
+        <div class="row">
+            <div class="col-xl-8 col-lg-12 col-md-12 itemBox" style="height: 400px;">
+                <div class="item" style="background-image: url(Content/img/img/greeting-img1.jpg);"></div>
+            </div>
+            <div class="col-xl-4 col-lg-12 col-md-12">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-6 col-md-12 itemBox" style="height: 200px;">
+                        <div class="item" style="background-image: url(Content/img/img/greeting-img2.jpg);"></div>
+                    </div>
+                    <div class="col-xl-12 col-lg-6 col-md-12 itemBox" style="height: 200px;">
+                        <div class="item" style="background-image: url(Content/img/img/greeting-img3.jpg);"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container detail">
+        <p>Smithhammer House at Terry Point is the perfect New Hampshire Inn. with nature at our doorstep and many attractions nearby. On our scenic, quiet property, you will be treated to idyllic views of Beautiful Lake and its glistening water, our guardian mountains in the distance and luscious gardens.</p>
+        <div class="more">
+            <a href="/lien-he">
+                <input type="submit" name="" value="more about us">
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid stats">
+    <div class="container title">
+        <p>Numbers we are proud of</p>
+        <div class="icon-title">
+            <img src="~/Content/img/img/icon-title.png">
+        </div>
+    </div>
+    <div class="container info">
+        <div class="row">
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
+                <div class="itemBox">
+                    <div class="item">
+                        <p class="number">12</p>
+                        <div class="slice"></div>
+                        <p class="criteria">Luxury Rooms</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
+                <div class="itemBox">
+                    <div class="item">
+                        <p class="number">43</p>
+                        <div class="slice"></div>
+                        <p class="criteria">Dining Options</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
+                <div class="itemBox">
+                    <div class="item">
+                        <p class="number">854</p>
+                        <div class="slice"></div>
+                        <p class="criteria">Happy Guests</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
+                <div class="itemBox">
+                    <div class="item">
+                        <p class="number">9.5</p>
+                        <div class="slice"></div>
+                        <p class="criteria">Average Rating</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- introduce rooms 2 -->
+<div class="container-fluid introduce2">
+    <p class="detail">The perfect romantic escape</p>
+    <p class="title">A wedding you will remember forever</p>
+    <div class="book-btn">
+        <a href="#">
+            <input type="submit" name="" value="intersted?">
+        </a>
+    </div>
+</div>
+<!-- end introduce rooms 2 -->
+
+
+<div class="container-fluid review">
+    <p class="title">Our Guests say</p>
+    <div class="icon-title">
+        <img src="~/Content/img/img/icon-title.png">
+    </div>
+    <div class="container guest">
+        <div class="row review-slide">
+            @foreach (var item in feedbacks)
+            {
+
+                <div class="col-12 item">
+                    <p class="detail">
+                        @item.Content
+                    </p>
+                    <div class="guest-info row">
+                        <div class="col-6 info-item">
+                            <div class="guest-img" style="background-image: url(@item.Image);"></div>
+                        </div>
+                        <div class="col-6 info-item">
+                            <div class="row">
+                                <div class="col-12 name"><p>@item.Name</p></div>
+                                <div class="col-12 job"><p>@item.Job</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+</div>

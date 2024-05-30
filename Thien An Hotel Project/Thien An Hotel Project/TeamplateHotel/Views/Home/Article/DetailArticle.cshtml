@@ -5,35 +5,199 @@
     Layout = "~/Views/Shared/_Layout_home.cshtml";
     Menu menu = ViewBag.Menu;
 }
+<link href="~/Content/img/css/detail-room.css" rel="stylesheet" />
+<script src="~/Content/img/js/detail-room.js"></script>
 
-<div class="col-md-9 col-sm-6 col-xs-12">
-    <h1 class="color333 title uppercase mg-bottom-25">@Model.Article.Title</h1>
-    <div class="home-des">
-        @Html.Raw(Model.Article.Content)
-    </div>
-    @if (Model.Articles.Count > 0)
-    {
-        <div class="widget tour-home other-tour" style="margin: 20px 0 10px 0;">
-            <h5 class="other-title"> @GetLanguage.Language(Request.Cookies["LanguageID"].Value, "OtherArticles")</h5>
+@*<div class="col-md-9 col-sm-6 col-xs-12">
+        <h1 class="color333 title uppercase mg-bottom-25">@Model.Article.Title</h1>
+        <div class="home-des">
+            @Html.Raw(Model.Article.Content)
+        </div>
+        @if (Model.Articles.Count > 0)
+        {
+            <div class="widget tour-home other-tour" style="margin: 20px 0 10px 0;">
+                <h5 class="other-title"> @GetLanguage.Language(Request.Cookies["LanguageID"].Value, "OtherArticles")</h5>
+                <div class="row">
+                    @foreach (var item in Model.Articles)
+                    {
+                        <div class="col-md-6 col-sm-12 wow fadeInDown animated animated" style="visibility: visible; animation-name: fadeInDown;">
+                            <div class="single_comments">
+                                <a title="Deluxe room" href="/@item.MenuAlias/@item.ID/@item.Alias">
+                                    <img alt="Deluxe room" src="@item.Image">
+                                </a>
+                                <p>
+                                    <a title="Deluxe room" href="/@item.MenuAlias/@item.ID/@item.Alias">@item.Title</a>
+                                </p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>*@<div class="detail-room container-fluid">
+    <div class="row">
+        <div class="container">
             <div class="row">
-                @foreach (var item in Model.Articles)
-                {
-                    <div class="col-md-6 col-sm-12 wow fadeInDown animated animated" style="visibility: visible; animation-name: fadeInDown;">
-                        <div class="single_comments">
-                            <a title="Deluxe room" href="/@item.MenuAlias/@item.ID/@item.Alias">
-                                <img alt="Deluxe room" src="@item.Image">
-                            </a>
-                            <p>
-                                <a title="Deluxe room" href="/@item.MenuAlias/@item.ID/@item.Alias">@item.Title</a>
-                            </p>
+                <div class="left col-xl-8 col-lg-8 col-md-12">
+                    <div class="row" style="width: 100%;">
+                        <div class="room-img left-item">
+                            <img src="@Model.Article.Image" class="bg-replace">
+                            <div class="zoom-layer">
+                                <div class="zoom-btn">
+                                    <i class="far fa-eye"></i>
+                                </div>
+                            </div>
+                            <div class="img-popup" id="img-popup">
+                                <div class="img-box" id="img-box">
+                                    <img src="">
+                                </div>
+                                <div class="close-popup">
+                                    <i class="fas fa-times"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="criteria left-item">
+                            <div class="row">
+                                <div class="col-12">
+                                    <p class="description">
+                                        @Model.Article.Description    
+                                    </p>
+                                </div>
+                                <div class="col-12">
+                                    <p class="article-tag">Tags: <span>Best deal</span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment left-item">
+                            <p class="title">Add Comments</p>
+                            <p class="note">Your email address will not be published. Required fields are marked *</p>
+                            <textarea placeholder="Comment"></textarea>
+                            <input type="name" name="" placeholder="Name *" class="name">
+                            <input type="email" name="" placeholder="Email *" class="email">
+                            <input type="text" name="" placeholder="Website" class="web">
+                            <button>post comment</button>
                         </div>
                     </div>
-                }
+                </div>
+                <div class="right col-xl-4 col-lg-4 col-md-12">
+                    <div class="row" style="width: 100%;">
+                        <div class="room-category right-item col-12">
+                            <p class="title">Categories</p>
+                            <p class="item"><i class="fa fa-angle-right"></i><a href="#"> Blog</a></p>
+                            <p class="item"><i class="fa fa-angle-right"></i><a href="#"> Classic</a></p>
+                            <p class="item"><i class="fa fa-angle-right"></i><a href="#"> Gallery</a></p>
+                            <p class="item"><i class="fa fa-angle-right"></i><a href="#"> Mansory 2 Columns</a></p>
+                            <p class="item"><i class="fa fa-angle-right"></i><a href="#"> Mansory 3 Columns</a></p>
+                            <p class="item"><i class="fa fa-angle-right"></i><a href="#"> News</a></p>
+                            <p class="item"><i class="fa fa-angle-right"></i><a href="#"> Portfolio 2 Columns</a></p>
+                            <p class="item"><i class="fa fa-angle-right"></i><a href="#"> Portfolio 3 Columns</a></p>
+                            <p class="item"><i class="fa fa-angle-right"></i><a href="#"> Post Formats</a></p>
+                        </div>
+                        <div class="slice"></div>
+                        <div class="post right-item col-12">
+                            <p class="title">Recent Posts</p>
+                            @foreach (var item in Model.Articles.Take(2))
+                            {
+                                <div class="item">
+                                    <div class="row" style="margin-left: 0; margin-right: 0;	">
+
+                                        <div class="col-4 image" style="background-image: url(@item.Image);"></div>
+                                        <div class="col-8">
+                                            <p class="article"><a href="/@item.MenuAlias/@item.ID/@item.Alias">@item.Title</a></p>
+                                            <p class="time"><span class="date">Feb 26,2016</span><span class="mes"><i class="fas fa-comment"></i> 0</span></p>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <div class="slice"></div>
+                        <div class="calendar right-item col-12">
+                            <p class="title">Calendar</p>
+                            <div id="calendar-init"></div>
+                        </div>
+                        <div class="slice"></div>
+                        <div class="tags right-item col-12">
+                            <p class="title">Tags</p>
+                            <p class="item">Asia</p>
+                            <p class="item">Best deals</p>
+                            <p class="item">Cheap Hotels</p>
+                            <p class="item">Discount</p>
+                            <p class="item">Honeymoon</p>
+                            <p class="item">Island</p>
+                        </div>
+                        <div class="slice"></div>
+                        <div class="instagram right-item col-12">
+                            <p class="title">Instagram</p>
+                            <p class="description">Instagram dis not return a 2020.</p>
+                        </div>
+                        <div class="slice"></div>
+                        <div class="search right-item col-12">
+                            <p class="title">Search</p>
+                            <input type="search" name="" placeholder="Enter keyword" id="right-search">
+                            <label for="right-search"><i class="fa fa-search"></i></label>
+                        </div>
+                        <div class="slice"></div>
+                        <div class="room-category right-item col-12 archives">
+                            <p class="title">Archives</p>
+                            <p class="item"><i class="fa fa-angle-right"></i><a href="#"> February 2016 </a><span>(39)</span></p>
+                            <p class="item"><i class="fa fa-angle-right"></i><a href="#"> March 2017 </a><span>(12)</span></p>
+                            <p class="item"><i class="fa fa-angle-right"></i><a href="#"> April 2018 </a><span>(47)</span></p>
+                            <p class="item"><i class="fa fa-angle-right"></i><a href="#"> May 2019 </a><span>(24)</span></p>
+                            <p class="item"><i class="fa fa-angle-right"></i><a href="#"> June 2020 </a><span>(51)</span></p>
+                        </div>
+                        <div class="slice"></div>
+                        <div class="post right-item col-12 rating">
+                            <p class="title">Rating</p>
+                            <div class="item">
+                                <div class="row" style="margin-left: 0; margin-right: 0;	">
+                                    <div class="col-4 image" style="background-image: url(img/dining1.jpg);"></div>
+                                    <div class="col-8">
+                                        <p class="article"><a href="#">Best Beef steak and Grilled vegetables</a></p>
+                                        <p class="rate">
+                                            <span class="star-rate">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            </span>
+                                            <span class="number-rate">
+                                                5.0
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="row" style="margin-left: 0; margin-right: 0;	">
+                                    <div class="col-4 image" style="background-image: url(img/dining2.jpg);"></div>
+                                    <div class="col-8">
+                                        <p class="article"><a href="#">Best Beef steak and Grilled vegetables</a></p>
+                                        <p class="rate">
+                                            <span class="star-rate">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            </span>
+                                            <span class="number-rate">
+                                                4.8
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    }
+    </div>
 </div>
-
-@Html.Partial("Comment/SiteBar")
+<!-- detail room -->
+@*@Html.Partial("Comment/SiteBar")*@
 
 

@@ -12,7 +12,7 @@ namespace ProjectLibrary.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.8.1.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.8.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -232,10 +232,22 @@ namespace ProjectLibrary.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-CCASMKP\\SQLEXPRESS;database=webkhachhang_thienanhotel;Trusted_Connection=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=103.226.248.52;Initial Catalog=webkhachhang_thienanhotel;User ID=webk" +
+            "h_thienanhotel;Password=123456789a@@")]
         public string webkhachhang_thienanhotelConnectionString {
             get {
                 return ((string)(this["webkhachhang_thienanhotelConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-CCASMKP\\SQLEXPRESS;Initial Catalog=webkhachhang_thienanhotel;" +
+            "Integrated Security=True;Encrypt=True;TrustServerCertificate=True")]
+        public string webkhachhang_thienanhotelConnectionString1 {
+            get {
+                return ((string)(this["webkhachhang_thienanhotelConnectionString1"]));
             }
         }
     }

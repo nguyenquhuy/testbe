@@ -59,6 +59,28 @@ namespace TeamplateHotel
                 alias = UrlParameter.Optional
             });
 
+
+            //member
+            routes.MapRoute("Member1", "MemberView", new
+            {
+                controller = "MemberView",
+                action = "Index",
+            });
+            //member
+            routes.MapRoute("Member2", "MemberViewDetails/{id}", new
+            {
+                controller = "MemberView",
+                action = "Details",
+                id = UrlParameter.Optional
+            });
+
+            //about
+            routes.MapRoute("About", "About", new
+            {
+                controller = "About",
+                action = "Index",
+            });
+
             routes.MapRoute("Default", "{aliasMenuSub}/{idSub}/{aliasSub}", new
             {
                 controller = "Home",
@@ -66,8 +88,8 @@ namespace TeamplateHotel
                 aliasMenuSub = UrlParameter.Optional,
                 idSub = UrlParameter.Optional,
                 aliasSub = UrlParameter.Optional
-            }
-                );
+            });
+            
         }
     }
 }

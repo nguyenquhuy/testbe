@@ -68,6 +68,8 @@ namespace TeamplateHotel.Controllers
                     goto Service;
                 case SystemMenuType.Booking:
                     return RedirectToAction("MakeReservation", "Booking");
+                case SystemMenuType.About:
+                    return RedirectToAction("Index", "About");
                 case SystemMenuType.Contact:
                     return View("Contact");
                 case SystemMenuType.Gallery:
@@ -102,6 +104,8 @@ namespace TeamplateHotel.Controllers
             }
             return View("Article/ListArticle", articles);
             #endregion
+
+
 
             //Trường hợp: Room
             #region "Kiểu Room & rate"

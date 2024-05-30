@@ -8,10 +8,17 @@
     Hotel hotel = CommentController.DetailHotel(Request.Cookies["LanguageID"].Value);
 }
 
-<script src="~/Scripts/jquery.min.js"></script>
-<link href="~/Plugins/Validate/jquery-validation-1.13.1/jquery-validation.css" rel="stylesheet" />
-<script src="~/Plugins/Validate/jquery-validation-1.13.1/jquery.validate.min.js"></script>
-<script src="~/Plugins/Validate/jquery-validation-1.13.1/additional-methods.min.js"></script>
+
+
+@*
+        script 2
+        <script src="~/Scripts/jquery.min.js"></script>
+    <link href="~/Plugins/Validate/jquery-validation-1.13.1/jquery-validation.css" rel="stylesheet" />
+    <script src="~/Plugins/Validate/jquery-validation-1.13.1/jquery.validate.min.js"></script>
+    <script src="~/Plugins/Validate/jquery-validation-1.13.1/additional-methods.min.js"></script>*@
+
+
+
 
 
 <div class="col-lg-12 col-md-12 col-sm-12">
@@ -67,7 +74,7 @@
                                     </td>
                                     <td class="td-price">
                                         @Model.ListRoomBookings[i].Price.ToString("##,###")<span> vnđ</span>
-                                        @Html.HiddenFor(a => a.ListRoomBookings[i].Price) 
+                                        @Html.HiddenFor(a => a.ListRoomBookings[i].Price)
                                     </td>
                                     <td class="td-max">
                                         @Model.ListRoomBookings[i].MaxPeople
@@ -93,36 +100,36 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             @GetLanguage.Language(Request.Cookies["LanguageID"].Value, "Gender")*<br>
-                                <select class="form-control" name="Gender">
-                                    <option value="">@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "Select")</option>
-                                    <option value="@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "Mr")">@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "Mr")</option>
-                                    <option value="@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "Ms")">@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "Ms")</option>
-                                    <option value="@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "Mrs")">@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "Mrs")</option>
-                                </select>
-                            </div>
+                            <select class="form-control" name="Gender">
+                                <option value="">@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "Select")</option>
+                                <option value="@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "Mr")">@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "Mr")</option>
+                                <option value="@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "Ms")">@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "Ms")</option>
+                                <option value="@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "Mrs")">@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "Mrs")</option>
+                            </select>
+                        </div>
                         <div class="form-group">
                             @GetLanguage.Language(Request.Cookies["LanguageID"].Value, "FullName") <span class="required">*</span><br>
-                                <input type="text" name="FullName" size="40" class="form-control">
-                            </div>
+                            <input type="text" name="FullName" size="40" class="form-control">
+                        </div>
 
                         <div class="form-group">
                             @GetLanguage.Language(Request.Cookies["LanguageID"].Value, "Tel")<span class="required">*</span><br>
                             <input type="text" name="Phone" size="40" class="form-control">
-                            </div>
+                        </div>
                         <div class="form-group">
                             @GetLanguage.Language(Request.Cookies["LanguageID"].Value, "Email") <span class="required">*</span><br>
                             <input type="email" name="Email" value="" size="40" class="form-control">
-                            </div>
+                        </div>
 
                         <div class="form-group">
                             @GetLanguage.Language(Request.Cookies["LanguageID"].Value, "Address")<br>
                             <input type="text" name="Address" size="40" class="form-control">
-                            </div>
+                        </div>
                         <div class="form-group">
                             @GetLanguage.Language(Request.Cookies["LanguageID"].Value, "City")<br>
                             <input type="text" name="City" value="" size="40" class="form-control">
-                            </div>
                         </div>
+                    </div>
 
                     <div class="col-md-6">
                         <div class="form-group">
@@ -374,12 +381,12 @@
                         <div class="form-group">
                             @GetLanguage.Language(Request.Cookies["LanguageID"].Value, "ArrivalTime")<br>
                             <input type="text" name="ArrivalTime" value="" size="40" class="form-control">
-                            </div>
+                        </div>
                         <div class="form-group">
                             @GetLanguage.Language(Request.Cookies["LanguageID"].Value, "OrtherRequest") <br>
                             <textarea name="Request" cols="40" rows="8" class="form-control"></textarea>
-                            </div>
                         </div>
+                    </div>
                     <div class="col-md-12 agree">
                         <input type="checkbox" name="agree" id="agree" /> <span>@Html.Raw(GetLanguage.Language(Request.Cookies["LanguageID"].Value, "Igree")) @hotel.Name</span>
                     </div>
@@ -401,6 +408,7 @@
 <div id="wraploadding">
     <div id="imgloadding"><img src="/Areas/Administrator/Content/img/ajax-loader.gif" alt="loading" /></div>
 </div>
+
 
 <script>
     function ShowDetailInfoRoom(param) {
@@ -518,6 +526,7 @@
         font-weight: bold;
         text-decoration: underline;
     }
+
     .agree a {
         font-weight: bold;
     }

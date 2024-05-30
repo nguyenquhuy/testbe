@@ -1,0 +1,198 @@
+﻿@using ProjectLibrary.Database
+@using TeamplateHotel.Controllers
+@model IEnumerable<ProjectLibrary.Database.Member>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_home.cshtml";
+    List<FeedBack> feedbacks = CommentController.GetFeedback();
+}
+
+<link href="~/Content/img/css/our-team.css" rel="stylesheet" />
+<script src="~/Content/img/js/our-team.js"></script>
+<!-- page title -->
+<div class="page-title container-fluid">
+    <div class="container" style="position: relative;">
+        <p class="title">Team</p>
+        <p class="page-tree">
+            <span class="home"><a href="/">Home</a></span>
+            <span><i class="fa fa-angle-right"></i></span>
+            <span>Team</span>
+        </p>
+    </div>
+</div>
+<!-- end page title -->
+<!-- introduce rooms -->
+<div class="container-fluid introduce">
+    <p class="title">Feel yourself at home</p>
+    <p class="detail">Book today and get 7% discount</p>
+    <div class="book-btn">
+        <a href="/phong-gia">
+            <input type="submit" name="" value="our rooms & rates">
+        </a>
+    </div>
+</div>
+<!-- end introduce rooms -->
+<!-- blogs -->
+<!-- list of member, light bg -->
+<div class="container-fluid blogs manage-team">
+    <div class="container title">
+        <p>Management team</p>
+        <div class="icon-title">
+            <img src="~/Content/img/img/icon-title.png">
+        </div>
+    </div>
+    <div class="container info">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="itemBox">
+                        <div class="item">
+                            <div class="img" style="background-image: url(@item.Image);"></div>
+                            <div class="individual-contact">
+                                <p class="icon">
+                                    <a href="#"><i class="fab fa-facebook"></i></a>
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="manage-name"><a href="MemberViewDetails/@item.ID">@item.Name</a></p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid review">
+    <p class="title">Testimonial</p>
+    <div class="icon-title">
+        <img src="~/Content/img/img/icon-title.png">
+    </div>
+    <div class="container guest">
+        <div class="row review-slide">
+            @foreach (var item in feedbacks)
+            {
+
+                <div class="col-12 item">
+                    <p class="detail">
+                        @item.Content
+                    </p>
+                    <div class="guest-info row">
+                        <div class="col-6 info-item">
+                            <div class="guest-img" style="background-image: url(@item.Image);"></div>
+                        </div>
+                        <div class="col-6 info-item">
+                            <div class="row">
+                                <div class="col-12 name"><p>@item.Name</p></div>
+                                <div class="col-12 job"><p>@item.Job</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+</div>
+
+
+<!-- blogs -->
+<!-- list of member, dark bg -->
+<div class="container-fluid blogs professionals">
+    <div class="container title">
+        <p>The best of professionals</p>
+        <div class="icon-title">
+            <img src="~/Content/img/img/icon-title.png">
+        </div>
+    </div>
+    <div class="container info">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="itemBox">
+                        <div class="item">
+                            <div class="img" style="background-image: url(@item.Image);"></div>
+                        </div>
+                        <p class="professional-name"><a href="detail-team.html">@item.Name</a></p>
+                    </div>
+                </div>
+            }
+
+            <div class="blog-btn">
+                <a href="#">
+                    <input type="submit" name="" value="become a member">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end blogs -->
+<!-- end blogs -->
+<!-- stats -->
+<div class="container-fluid stats">
+    <div class="container title">
+        <p>Numbers we are proud of</p>
+        <div class="icon-title">
+            <img src="~/Content/img/img/icon-title.png">
+        </div>
+    </div>
+    <div class="container info">
+        <div class="row">
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
+                <div class="itemBox">
+                    <div class="item">
+                        <p class="number">12</p>
+                        <div class="slice"></div>
+                        <p class="criteria">Luxury Rooms</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
+                <div class="itemBox">
+                    <div class="item">
+                        <p class="number">43</p>
+                        <div class="slice"></div>
+                        <p class="criteria">Dining Options</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
+                <div class="itemBox">
+                    <div class="item">
+                        <p class="number">854</p>
+                        <div class="slice"></div>
+                        <p class="criteria">Happy Guests</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
+                <div class="itemBox">
+                    <div class="item">
+                        <p class="number">9.5</p>
+                        <div class="slice"></div>
+                        <p class="criteria">Average Rating</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end stats -->
+<!-- check room -->
+<div class="container-fluid check">
+    <div class="container check-items">
+        <div class="row">
+            <div class="col-8">
+                <p class="ad">Free kayaking lessons for our guests!</p>
+                <p class="detail">Do you fancy kayaking? How about fishing? We always have to offer something you'll enjoy.</p>
+            </div>
+            <div class="col-4" style="display: flex; justify-content: center; align-items: center;">
+                <button><a href="/phong-gia">check rooms & rates</a></button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end check room -->

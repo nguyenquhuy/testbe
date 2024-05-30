@@ -6,49 +6,56 @@
     Layout = "~/Views/Shared/_Layout_home.cshtml";
     Menu menu = ViewBag.Menu ?? new Menu();
     List<Menu> menus = CommentController.GetMainMenus(Request.Cookies["LanguageID"].Value).Where(a => a.Type == SystemMenuType.Gallery).ToList();
+    List<Gallery> galleries = CommentController.Gallery(Request.Cookies["LanguageID"].Value);
 }
 <!-- Css prettyphoto-master -->
-<link href="~/Plugins/prettyphoto-master/css/prettyPhoto.css" rel="stylesheet" />
+@*<link href="~/Plugins/prettyphoto-master/css/prettyPhoto.css" rel="stylesheet" />*@
+@*<link href="~/Content/img/css/gallery-grid.css" rel="stylesheet" />
+    <script src="~/Content/img/js/gallery-grid.js"></script>*@
 <!-- Jquery prettyphoto-master -->
-<script src="~/Plugins/prettyphoto-master/js/jquery.prettyPhoto.js"></script>
+@*<script src="~/Plugins/prettyphoto-master/js/jquery.prettyPhoto.js"></script>*@
+<!-- page title -->
+<div class="page-title container-fluid">
+    <div class="container" style="position: relative;">
+        <p class="title">Grid</p>
+        <p class="page-tree">
+            <span class="home"><a href="/">Home</a></span>
+            <span><i class="fa fa-angle-right"></i></span>
+            <span>Grid</span>
+        </p>
+    </div>
+</div>
+<!-- end page title -->
+<!-- image show -->
+<div class="image-show">
+    <div class="image-item">
+        <img src="">
+    </div>
+</div>
+<!-- end image show -->
 
-<div class="col-lg-9 col-md-8 col-sm-8">
-    <h1 class="main-title  wow fadeInDown animated animated" style="visibility: visible; animation-name: fadeInDown;">
-        @menu.Title
-    </h1>
-    <div class="content-main wow fadeInDown animated animated" style="visibility: visible; animation-name: fadeInDown;">
-        <div style="margin-top:15px; padding-top:15px; border-top:1px solid #dcdcdc;">
-            @foreach (var item in menus.Where(a => a.ParentID != 0))
-            {
-                <h3 title="@item.ID" class="main-title wow fadeInDown animated animated animated" style="font-size: 20px; margin-bottom: 20px;">@item.Title</h3>
-                <div class="row">
-                    @foreach (var gallery in Model.Where(a=>a.MenuId == item.ID))
-                    {
-                        <div class="col-md-3 col-sm-3" style="margin-bottom: 25px;">
-                            <div class="gallery-item">
-                                <a class="pfzoom" href="@gallery.LargeImage" data-rel="prettyPhoto[mixed]" rel="prettyPhoto[mixed]">
-                                    <img src="@gallery.SmallImage">
-                                </a>
+<div class="gallery-grid container-fluid">
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                @foreach (var item in galleries)
+                {
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 item">
+                        <div class="image">
+                            <img src="@item.SmallImage" class="bg-replace">
+                        </div>
+                        <div class="info-layer">
+                            <div class="zoom layer-item">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <div class="detail layer-item">
+                                <a href="#"><i class="fas fa-link"></i></a>
                             </div>
                         </div>
-                    }
-                        
-                </div>
-            }
+                    </div>
+                }
+            </div>
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function () {
-        jQuery("a[rel^='prettyPhoto']").prettyPhoto({ animationSpeed: 'slow', theme: 'pp_default', gallery_markup: '', slideshow: 2000, social_tools: '' });
-
-    });
-</script>
-
-@Html.Partial("Comment/SiteBar")
-
-<style>
-    .gallery-item img {
-        width: 100%;
-    }
-</style>
+<!-- end gallery-grid -->

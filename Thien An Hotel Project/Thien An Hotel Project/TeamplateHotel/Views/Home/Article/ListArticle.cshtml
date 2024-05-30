@@ -8,58 +8,103 @@
     Menu menu = ViewBag.Menu ?? new Menu();
 }
 
-<div class="col-lg-9 col-md-8 col-sm-8">
-    <h1 class="main-title  wow fadeInDown animated animated" style="visibility: visible; animation-name: fadeInDown;">
-        @menu.Title
-    </h1>
-    @if (menu.ID == 1172 || menu.ID == 154)
-    {
-        foreach (var item in Model)
-        {
-
-            <div class="tour-sum wow fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;">
-                <div class="row">
-                    <div class="col-md-4 col-sm-4 col-xs-12">
-                        <img alt="" src="@item.Image" width="100%">
-                    </div>
-                    <div class="col-md-8 col-sm-8 col-xs-12">
-                        <h3 class="h4-title">
-                            @item.Title
-                        </h3>
-                        <p>@Html.Raw(item.Description)</p>
-                    </div>
-                </div>
-            </div>
-        }
-
-    }
-    else
-    {
-        foreach (var item in Model)
-        {
-            <div class="tour-sum wow fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;">
-                <div class="row">
-
-                    <div class="col-md-4 col-sm-4 col-xs-12">
-                        <a title="" class="thumbnail" href="/@item.MenuAlias/@item.ID/@item.Alias" style="position: relative;">
-                            <img alt="" src="@item.Image">
-                        </a>
-                    </div>
-                    <div class="col-md-8 col-sm-8 col-xs-12">
-                        <h4 class="h4-title">
-                            <a title="" href="/@item.MenuAlias/@item.ID/@item.Alias">@item.Title</a>
-                        </h4>
-                        <p>@Html.Raw(item.Description)</p>
-
-                        <span class="booking"><a href="/@item.MenuAlias/@item.ID/@item.Alias">@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "ViewDetail")</a></span>
-
-                    </div>
-
-                </div>
-            </div>
-        }
-
-    }
-
+<!-- page title -->
+<div class="page-title container-fluid">
+    <div class="container" style="position: relative;">
+        <p class="title">Portfolio 3 columns</p>
+        <p class="page-tree">
+            <span class="home"><a href="/">Home</a></span>
+            <span><i class="fa fa-angle-right"></i></span>
+            <span>Portfolio 3 columns</span>
+        </p>
+    </div>
 </div>
-@Html.Partial("Comment/SiteBar")
+<!-- end page title -->
+
+<div>
+    @*<h1 class="main-title  wow fadeInDown animated animated" style="visibility: visible; animation-name: fadeInDown;">
+            @menu.Title
+        </h1>
+        @if (menu.ID == 1172 || menu.ID == 154)
+        {
+            foreach (var item in Model)
+            {
+
+                <div class="tour-sum wow fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <img alt="" src="@item.Image" width="100%">
+                        </div>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                            <h3 class="h4-title">
+                                @item.Title
+                            </h3>
+                            <p>@Html.Raw(item.Description)</p>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <div class="tour-sum wow fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;">
+                    <div class="row">
+
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <a title="" class="thumbnail" href="/@item.MenuAlias/@item.ID/@item.Alias" style="position: relative;">
+                                <img alt="" src="@item.Image">
+                            </a>
+                        </div>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                            <h4 class="h4-title">
+                                <a title="" href="/@item.MenuAlias/@item.ID/@item.Alias">@item.Title</a>
+                            </h4>
+                            <p>@Html.Raw(item.Description)</p>
+
+                            <span class="booking"><a href="/@item.MenuAlias/@item.ID/@item.Alias">@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "ViewDetail")</a></span>
+
+                        </div>
+
+                    </div>
+                </div>
+            }
+
+        }*@
+
+    <!-- portfolio -->
+    <div class="portfolio container-fluid">
+        <div class="row">
+            <div class="container">
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 item">
+                            <div class="image" style="background-image: url(@item.Image);"></div>
+                            <div class="info-layer">
+                                <div class="detail">
+                                    <p class="title"><a href="/@item.MenuAlias/@item.ID/@item.Alias">@item.Title</a></p>
+                                    <p class="time">Dec 28,2020 <span><i class="fas fa-comment"></i> 32</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    @*<div class="row">
+                                <div class="col-12 pagination">
+                                    <div class="page-block active">1</div>
+                                    <div class="page-block">2</div>
+                                    <div class="page-block">3</div>
+                                    <div class="page-block"><i class="fa fa-angle-right"></i></div>
+                                    <div class="page-block"><i class="fa fa-angle-double-right"></i></div>
+                                </div>
+                            </div>
+                        </div>*@
+                </div>
+            </div>
+            <!-- end portfolio -->
+
+        </div>
+    </div>
+    @*@Html.Partial("Comment/SiteBar")*@

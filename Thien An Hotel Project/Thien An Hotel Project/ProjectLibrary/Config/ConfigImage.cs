@@ -11,5 +11,6 @@ namespace ProjectLibrary.Config
         public static String InfoImageService = "750 x 330(px)";
         public static String InfoImageArticle = "750 x 330(px)";
         public static String InfoImageTour = "750 x 330(px)";
+        public static String InfoImageMember = "750 x 330(px)";
     }
 }

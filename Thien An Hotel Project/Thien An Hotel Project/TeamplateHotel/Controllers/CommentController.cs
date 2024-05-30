@@ -229,6 +229,16 @@ namespace TeamplateHotel.Controllers
                 return restaurants;
             }
         }
+
+        //Feedback
+        public static List<FeedBack> GetFeedback()
+        {
+            using (var db = new MyDbDataContext())
+            {
+               return db.FeedBacks.Where(a => a.Job.ToString() == "Tourist").OrderByDescending(a => a.CreateDate).Take(3).ToList();                
+            }
+        }
+
         //Chi tiết dich vu
         public static DetailService Detail_Service(int id)
         {

@@ -1,0 +1,153 @@
+﻿@using ProjectLibrary.Config
+@using TeamplateHotel.Areas.Administrator.EntityModel
+@model EMember
+@{
+    Layout = "~/Areas/Administrator/Views/Templates/_LayoutPage.cshtml";
+    int flag = 0;
+}
+<div class="span12">
+    <div class="widget ">
+        <div class="widget-header">
+            <i class=" icon-plus-sign"></i>
+            <h3>@ViewBag.Title</h3>
+        </div> <!-- /widget-header -->
+
+        <div class="widget-content">
+            @Html.ValidationSummary(true)
+            @using (Html.BeginForm("Create", "Member", FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                <div class="control-group">
+                    <label class="control-label" for="Title">Tên Member<span class="asterisk">*</span></label>
+                    <div class="controls">
+                        @Html.TextBoxFor(c => c.Name, new { @class = "span4" })
+                        @Html.ValidationMessageFor(c => c.Name)
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="Description">Description<span class="asterisk">*</span></label>
+                    <div class="controls">
+                        @Html.TextBoxFor(c => c.Description, new { @class = "span4" }) 
+                        @Html.ValidationMessageFor(c => c.Description)
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="Image">Hình đại diện<span class="asterisk">*</span></label>
+                    <div class="controls">
+                        @Html.TextBoxFor(c => c.Image, new { @class = "span4 inputbox upload" })
+                        @Html.ValidationMessageFor(c => c.Image)
+                        <p class="help-img">Nên chọn ảnh có kích thước 750 x 330</p>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="PhoneNumber">SDT<span class="asterisk">*</span></label>
+                    <div class="controls">
+                        @Html.TextBoxFor(c => c.PhoneNumber, new { @class = "span4" })
+                        @Html.ValidationMessageFor(c => c.PhoneNumber)
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="Email">Email</label>
+                    <div class="controls">
+                        @Html.TextBoxFor(c => c.Email, new { @class = "span4" }) 
+                        @Html.ValidationMessageFor(c => c.Email)
+                    </div>
+                </div>
+
+
+                <div class="form-actions">
+                    <input type="submit" value="Submit" class="btn btn-primary" />
+                    <a href="@Url.Action("Index", "Member")" class="btn">Cancel</a>
+                </div>
+               
+            }
+        </div>
+    </div>
+</div>
+
+<ul id='context-menu'>
+    <li>Delete</li>
+</ul>
+
+
+
+<script type="text/javascript">
+    
+
+    function sapxep() {
+        var temp = 0;
+        $(".allImage li").each(function() {
+            $(this).find('input').each(function() {
+                var id = $(this).attr("id");
+                var name = $(this).attr("name");
+                var abc = name.substring(name.indexOf('[') + 1, name.indexOf(']'));
+                //console.log('name: ' + name + ' and : ' + abc);
+                var idreplace = id.replace(abc, temp);
+                var namereplace = name.replace(abc, temp);
+                $(this).attr("id", idreplace);
+                $(this).attr("name", namereplace);
+            });
+            temp++;
+        });
+        bindRightClick();
+    }
+
+    function loadHtmlForImage(val) {
+        if ($('#EGalleryITems_' + val + '__Image').length > 0) {
+            return loadHtmlForImage(++val);
+        } else {
+            //console.log(val);
+            var image = '<input id="EGalleryITems_' + val + '__Image" name="EGalleryITems[' + val + '].Image" type="hidden" value="' + $('#img-thumb').val() + '"/>';
+            var img = '<img src="' + $('#img-thumb').val() + '" width="100" height="80" />';
+            return ('<li>' + image + img + '</li>');
+        }
+    }
+
+    $(document).ready(function() {
+        bindUl();
+        AutoAlias("Title", "Alias");
+        CreateCkEditor();
+
+        bindRightClick();
+        $('html').click(function(e) {
+            $('#context-menu').hide();
+        });
+        $('#context-menu').click(function(e) {
+            e.stopPropagation();
+            $(curentImg).remove();
+            sapxep();
+            $('#context-menu').hide(100);
+        });
+        $(window).resize(function() {
+            $('#context-menu').hide();
+        });
+        //
+        var count = 0;
+        //Thêm ảnh
+        $('#add').click(function() {
+            if ($('#img').val() == "") {
+                alert("Xin vui lòng chọn ảnh");
+            } else {
+                var data = '';
+                while (true) {
+                    if ($('#EGalleryITems_0__Image').length == 0) {
+                        data = loadHtmlForImage(0);
+                        count = 1;
+                    } else {
+                        data = loadHtmlForImage(count++);
+                    }
+                    break;
+                }
+                $('.allImage').append(data);
+                sapxep();
+                bindRightClick();
+                $('#img-title').val('');
+                $('#img-thumb').val('');
+                $('#img').val('');
+            }
+
+        });
+    });
+
+</script>

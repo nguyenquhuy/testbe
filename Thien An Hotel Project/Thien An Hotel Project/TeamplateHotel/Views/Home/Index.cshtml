@@ -1,36 +1,260 @@
 ﻿@using TeamplateHotel.Controllers
 @using TeamplateHotel.Handler
 @using TeamplateHotel.Models
+@using ProjectLibrary.Database
 @{
     ViewBag.Home = true;
     Layout = "~/Views/Shared/_Layout_home.cshtml";
     ShowObject article = CommentController.WellcomeArticle(Request.Cookies["LanguageID"].Value) ?? new ShowObject();
+    List<FeedBack> feedbacks = CommentController.GetFeedback();
+    var serviceShowHome = CommentController.ServiceShowHome(Request.Cookies["LanguageID"].Value);
+    List<ShowObject> rooms = CommentController.RoomShowHome(Request.Cookies["LanguageID"].Value);
+
 }
 
+@*<div class="col-md-9 col-sm-6 col-xs-12">
+        <h1 class="color333 title uppercase mg-bottom-25">@article.Title</h1>
+        <div class="home-des">
+            @Html.Raw(article.Description)
+        </div>
+    </div>*@
 
-<div class="col-md-9 col-sm-6 col-xs-12">
-    <h1 class="color333 title uppercase mg-bottom-25">@article.Title</h1>
-    <div class="home-des">
-        @Html.Raw(article.Description)
+<div class="container-fluid welcome">
+    <div class="container words">
+        <p class="title">Welcome to the Lake Inn!</p>
+        <div class="icon-title">
+            <img src="~/Content/img/img/icon-title.png">
+        </div>
+        <p class="short-des">We are pleased to be your premier breakfast and bed for rest, activities and nature on Beautiful Lake.</p>
     </div>
-
+    <div class="container images">
+        <p class="short-des">We are pleased to be your premier breakfast and bed for rest, activities and nature on Beautiful Lake.</p>
+        <div class="row">
+            <div class="col-xl-8 col-lg-12 col-md-12 itemBox" style="height: 400px;">
+                <div class="item" style="background-image: url(Content/img/img/greeting-img1.jpg);"></div>
+            </div>
+            <div class="col-xl-4 col-lg-12 col-md-12">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-6 col-md-12 itemBox" style="height: 200px;">
+                        <div class="item" style="background-image: url(Content/img/img/greeting-img2.jpg);"></div>
+                    </div>
+                    <div class="col-xl-12 col-lg-6 col-md-12 itemBox" style="height: 200px;">
+                        <div class="item" style="background-image: url(Content/img/img/greeting-img3.jpg);"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container detail">
+        <p>Smithhammer House at Terry Point is the perfect New Hampshire Inn. with nature at our doorstep and many attractions nearby. On our scenic, quiet property, you will be treated to idyllic views of Beautiful Lake and its glistening water, our guardian mountains in the distance and luscious gardens.</p>
+        <div class="more">
+            <a href="/lien-he">
+                <input type="submit" name="" value="more about us">
+            </a>
+        </div>
+    </div>
 </div>
 
-<div class="col-md-3 col-sm-6 col-xs-12 checkhome">
+<!-- introduce rooms -->
+<div class="container-fluid introduce">
+    <p class="title">Feel yourself at home</p>
+    <p class="detail">Book today and get 7% discount</p>
+    <div class="book-btn">
+        <a href="/phong-gia">
+            <input type="submit" name="" value="our rooms & rates">
+        </a>
+    </div>
+</div>
+
+<!-- dining -->
+<div class="container-fluid dining">
+    <div class="container words">
+        <p class="title">Exceptional dining</p>
+        <div class="icon-title">
+            <img src="~/Content/img/img/icon-title.png">
+        </div>
+        <p class="detail">On our scenic, quiet property, you will be treated to idyllic views of Beautiful Lake and its glistening water, our guardian mountains in the distance and luscious gardens.</p>
+    </div>
+    <div class="images container">
+        <div class="row dining-slide">
+            @foreach (var item in serviceShowHome)
+            {
+                <div class="col-12 dining-item" style="background-image: url(@item.Image);">
+                    <div class="info">
+                        <p class="title">@item.Title</p>
+                        <p class="detail">
+                            @item.Description
+                        </p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<!-- end dining -->
+<!-- stats -->
+<div class="container-fluid stats">
+    <div class="container title">
+        <p>Numbers we are proud of</p>
+        <div class="icon-title">
+            <img src="~/Content/img/img/icon-title.png">
+        </div>
+    </div>
+    <div class="container info">
+        <div class="row">
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
+                <div class="itemBox">
+                    <div class="item">
+                        <p class="number">12</p>
+                        <div class="slice"></div>
+                        <p class="criteria">Luxury Rooms</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
+                <div class="itemBox">
+                    <div class="item">
+                        <p class="number">43</p>
+                        <div class="slice"></div>
+                        <p class="criteria">Dining Options</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
+                <div class="itemBox">
+                    <div class="item">
+                        <p class="number">854</p>
+                        <div class="slice"></div>
+                        <p class="criteria">Happy Guests</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
+                <div class="itemBox">
+                    <div class="item">
+                        <p class="number">9.5</p>
+                        <div class="slice"></div>
+                        <p class="criteria">Average Rating</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end stats -->
+<!-- blogs -->
+<div class="container-fluid blogs">
+    <div class="container title">
+        <p>From Blogs</p>
+        <div class="icon-title">
+            <img src="~/Content/img/img/icon-title.png">
+        </div>
+    </div>
+    <div class="container info">
+        <div class="row">
+            @foreach (var item in rooms.Take(4))
+            {
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="itemBox">
+                        <div class="item">
+                            <div class="img" style="background-image: url(@item.Image);"></div>
+                            <div class="slice"></div>
+                            <p class="info-title">@item.Title</p>
+                            <p class="time">Feb 23,2016 <span><i class="fas fa-comment"></i> 0</span></p>
+                            <div class="slice"></div>
+                            <p class="detail">
+                                @item.Description
+                            </p>
+                            <p class="more"><a href="#">Read More</a></p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="blog-btn">
+            <a href="check-article.html">
+                <input type="submit" name="" value="go to the blog">
+            </a>
+        </div>
+    </div>
+</div>
+<!-- end blogs -->
+<!-- introduce rooms 2 -->
+<div class="container-fluid introduce2">
+    <p class="detail">The perfect romantic escape</p>
+    <p class="title">A wedding you will remember forever</p>
+    <div class="book-btn">
+        <a href="#">
+            <input type="submit" name="" value="intersted?">
+        </a>
+    </div>
+</div>
+<!-- end introduce rooms 2 -->
+
+
+<div class="container-fluid review">
+    <p class="title">Our Guests say</p>
+    <div class="icon-title">
+        <img src="~/Content/img/img/icon-title.png">
+    </div>
+    <div class="container guest">
+        <div class="row review-slide">
+            @foreach (var item in feedbacks)
+            {
+
+                <div class="col-12 item">
+                    <p class="detail">
+                        @item.Content
+                    </p>
+                    <div class="guest-info row">
+                        <div class="col-6 info-item">
+                            <div class="guest-img" style="background-image: url(@item.Image);"></div>
+                        </div>
+                        <div class="col-6 info-item">
+                            <div class="row">
+                                <div class="col-12 name"><p>@item.Name</p></div>
+                                <div class="col-12 job"><p>@item.Job</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+</div>
+
+
+<!-- check room -->
+<div class="container-fluid check">
+    <div class="container check-items">
+        <div class="row">
+            <div class="col-8">
+                <p class="ad">Free kayaking lessons for our guests!</p>
+                <p class="detail">Do you fancy kayaking? How about fishing? We always have to offer something you'll enjoy.</p>
+            </div>
+            <div class="col-4" style="display: flex; justify-content: center; align-items: center;">
+                <button><a href="#">check rooms & rates</a></button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end check room -->
+<!--<div class="col-md-3 col-sm-6 col-xs-12 checkhome">
     <div class="panel-default widget-booking" style="padding: 15px 0 25px 0; display: inline-block; width: 100%;">
         <div class="checkrateform">
-            <form action="/booking" method="get" id="formCheckRoom" novalidate="novalidate">
-                @*<input id="CompanyId" name="CompanyId" type="hidden" value="WHT8888">
-                <div id="av-wrap-list-hotel" style="display:none">
-                    <select class="av-listhotel" data-val="true" data-val-range="Please select a hotel" data-val-range-max="2147483647" data-val-range-min="1" data-val-required="Please select a hotel" id="HotelId" name="HotelId">
-                        <option value="">All Properties</option>
-                        <option selected="selected" value="372907"></option>
-                        <option value="637478"></option>
-                        <option value="852203"></option>
-                        <option value="619755"></option>
-                        <option value="788720"></option>
-                    </select>*@
-                    <span class="field-validation-valid" data-valmsg-for="HotelId" data-valmsg-replace="true"></span>
+            <form action="/booking" method="get" id="formCheckRoom" novalidate="novalidate">-->
+@*<input id="CompanyId" name="CompanyId" type="hidden" value="WHT8888">
+    <div id="av-wrap-list-hotel" style="display:none">
+        <select class="av-listhotel" data-val="true" data-val-range="Please select a hotel" data-val-range-max="2147483647" data-val-range-min="1" data-val-required="Please select a hotel" id="HotelId" name="HotelId">
+            <option value="">All Properties</option>
+            <option selected="selected" value="372907"></option>
+            <option value="637478"></option>
+            <option value="852203"></option>
+            <option value="619755"></option>
+            <option value="788720"></option>
+        </select>*@
+<!--<span class="field-validation-valid" data-valmsg-for="HotelId" data-valmsg-replace="true"></span>
                 </div>
                 <div class="form-horizontal">
                     <div class="header-form">@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "MakeAReservation")</div>
@@ -116,7 +340,40 @@
             </form>
         </div>
     </div>
-</div>
+</div>-->
+@*feedback*@
+@*<div class="container-fluid review">
+        <p class="title">Our Guests say</p>
+        <div class="icon-title">
+            <img src="img/icon-title.png">
+        </div>
+        <div class="container guest">
+            <div class="row review-slide">
+                @foreach (var item in feedbacks)
+                {
+
+                    <div class="col-12 item">
+                        <p class="detail">
+                            @item.Content
+                        </p>
+                        <div class="guest-info row">
+                            <div class="col-6 info-item">
+                                <div class="guest-img" style="background-image: url(@item.Image);"></div>
+                            </div>
+                            <div class="col-6 info-item">
+                                <div class="row">
+                                    <div class="col-12 name"><p>@item.Name</p></div>
+                                    <div class="col-12 job"><p>@item.Job</p></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            </div>
+            </div>
+    </div>*@
+
 <script>
     var checkIn = new Date();
     var checkOut = new Date();

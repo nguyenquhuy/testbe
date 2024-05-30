@@ -1,0 +1,166 @@
+﻿@using ProjectLibrary.Database
+@using TeamplateHotel.Controllers
+@using TeamplateHotel.Handler
+@model ProjectLibrary.Database.Member
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout_home.cshtml";
+    List<FeedBack> feedbacks = CommentController.GetFeedback();
+}
+
+<link href="~/Content/img/css/detail-team.css" rel="stylesheet" />
+<script src="~/Content/img/js/detail-team.js"></script>
+<!-- page title -->
+<div class="page-title container-fluid">
+    <div class="container" style="position: relative;">
+        <p class="title">@Model.Name</p>
+        <p class="page-tree">
+            <span class="home"><a href="index.html">Home</a></span>
+            <span><i class="fa fa-angle-right"></i></span>
+            <span>@Model.Name</span>
+        </p>
+    </div>
+</div>
+<!-- end page title -->
+<!-- member detail -->
+<div class="container-fluid member-detail">
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-5 col-sm-12 col-12">
+                    <div class="member-img left-item">
+                        <img src="@Model.Image" class="bg-replace">
+                        <div class="zoom-layer">
+                            <div class="zoom-btn">
+                                <i class="far fa-eye"></i>
+                            </div>
+                        </div>
+                        <div class="img-popup" id="img-popup">
+                            <div class="img-box" id="img-box">
+                                <img src="">
+                            </div>
+                            <div class="close-popup">
+                                <i class="fas fa-times"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-7 col-sm-12 col-12">
+                    <div class="member-info">
+                        <p class="name">@Model.Name</p>
+                        <p class="description">
+                            @Model.Description
+                        </p>
+                        <p class="phone">Phone: <span>@Model.PhoneNumber</span></p>
+                        <p class="email">Email: <span>@Model.Email</span></p>
+                        <p class="social">Me in socials:</p>
+                        <p class="icon">
+                            <a href="#"><i class="fab fa-facebook"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </p>
+                        <div class="skills">
+                            <p>Rooms <span class="number-count">95</span><span class="percent">%</span></p>
+                            <div class="skill-bar-bg">
+                                <div class="skill-bar" style="width: calc((100% - 10px)/100*95);">
+                                    <div class="animate-skill-bar"></div>
+                                </div>
+                            </div>
+                            <p>Rooms <span class="number-count">80</span><span class="percent">%</span></p>
+                            <div class="skill-bar-bg">
+                                <div class="skill-bar" style="width: calc((100% - 10px)/100*80);">
+                                    <div class="animate-skill-bar"></div>
+                                </div>
+                            </div>
+                            <p>Rooms <span class="number-count">85</span><span class="percent">%</span></p>
+                            <div class="skill-bar-bg">
+                                <div class="skill-bar" style="width: calc((100% - 10px)/100*85);">
+                                    <div class="animate-skill-bar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end member detail -->
+
+<div class="container-fluid review">
+    <p class="title">Our Guests Say</p>
+    <div class="icon-title">
+        <img src="~/Content/img/img/icon-title.png">
+    </div>
+    <div class="container guest">
+        <div class="row review-slide">
+            @foreach (var item in feedbacks)
+            {
+
+                <div class="col-12 item">
+                    <p class="detail">
+                        @item.Content
+                    </p>
+                    <div class="guest-info row">
+                        <div class="col-6 info-item">
+                            <div class="guest-img" style="background-image: url(@item.Image);"></div>
+                        </div>
+                        <div class="col-6 info-item">
+                            <div class="row">
+                                <div class="col-12 name"><p>@item.Name</p></div>
+                                <div class="col-12 job"><p>@item.Job</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- member contact -->
+<div class="container-fluid member-contact">
+    <p class="title">Say Hello to @Model.Name</p>
+    <div class="icon-title">
+        <img src="~/Content/img/img/icon-title.png">
+    </div>
+    <div class="row info">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-3 col-lg-3 col-md-2 col-sm hidden-xs"></div>
+                <div class="col-xl-6 col-lg-6 col-md-8 col-sm-10 col-12 item contact">
+                    <input type="name" name="" placeholder="Name">
+                    <input type="email" name="" placeholder="Email">
+                    <textarea placeholder="Message"></textarea>
+                    <div class="policy">
+                        <div class="checkbox">
+                            <input type="checkbox" name="" id="check-policy">
+                        </div>
+                        <div class="words">
+                            <p>I agree that my submitted data is being collected and stored. For further details on handling user data, see our</br><span><a href="#">Privacy Policy</a></span></p>
+                        </div>
+                        <button class="condition-policy">send message</button>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-2 col-sm hidden-xs"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end member contact -->
+<!-- check -->
+<div class="container-fluid check">
+    <div class="container check-items">
+        <div class="row">
+            <div class="col-8">
+                <p class="ad">Free kayaking lessons for our guests!</p>
+                <p class="detail">Do you fancy kayaking? How about fishing? We always have to offer something you'll enjoy.</p>
+            </div>
+            <div class="col-4" style="display: flex; justify-content: center; align-items: center;">
+                <button><a href="/phong-gia">check rooms & rates</a></button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end check -->

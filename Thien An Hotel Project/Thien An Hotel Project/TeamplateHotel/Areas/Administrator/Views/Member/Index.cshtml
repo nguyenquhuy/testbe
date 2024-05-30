@@ -1,0 +1,88 @@
+﻿@model TeamplateHotel.Areas.Administrator.EntityModel.EMember
+@{
+    Layout = "/Areas/Administrator/Views/Templates/_LayoutPage.cshtml";
+}
+<form action="@Url.Action("UpdateIndex", "EMember")" method="POST" id="updateIndex">
+    <div id="jtable-main-container"></div>
+</form>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#jtable-main-container').jtable({
+            title: '@ViewBag.Title',
+            paging: true, //Enable paging
+            pageSize: 40, //Set page size (default: 10)
+            sorting: true, //Enable sorting
+            selecting: true, //Enable selecting
+            multiselect: true, //Allow multiple selecting
+            selectingCheckboxes: true, //Show checkboxes on first column
+            columnResizable: false, //Actually, no need to set true since it's default
+            columnSelectable: true, //Actually, no need to set true since it's default
+            saveUserPreferences: false, //Actually, no need to set true since it's default
+            toolbar: {
+                items: [
+                {
+                    icon: '/Areas/Administrator/Content/img/add.png',
+                    text: 'Thêm mới',
+                    click: function() {
+                        window.location = '@Url.Action("Create", "Member")';
+                    }
+                }, {
+                    icon: '/Areas/Administrator/Content/img/Ordering.png',
+                    text: 'Sắp xếp',
+                    click: function() {
+                        $("#updateIndex").submit();
+                    }
+                }
+            ]
+             },
+            actions: {
+                listAction: '@Url.Action("List", "Member")',
+                deleteAction: '@Url.Action("Delete", "Member")',
+            },
+
+            fields: {
+                ID: {
+                    key: true,
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                Name: {
+                    title: '@Html.DisplayNameFor(c => c.Name)',
+                    width: '10%',
+                    inputClass: 'full-width',
+                },
+                Description: {
+                    title: '@Html.DisplayNameFor(c => c.Description)',
+                    width: '10%',
+                    inputClass: 'full-width',
+                    list: false,
+                },
+                Image: {
+                    title: '@Html.DisplayNameFor(c => c.Image)',
+                    sorting: false,
+                    width: '15%',
+                    inputClass: 'upload',
+                    display: function (data) {
+                        return ' <img src="' + data.record.Image + '" width="80px" height="60px"/>';
+                    },
+                },
+                PhoneNumber: {
+                    title: '@Html.DisplayNameFor(c => c.PhoneNumber)',
+                    width: '10%',
+                    inputClass: 'full-width',
+                },
+                Email: {
+                    title: '@Html.DisplayNameFor(c => c.Email)',
+                    width: '10%',
+                    inputClass: 'full-width',
+                }
+            },
+        });
+        //Load data
+        $('#jtable-main-container').jtable('load');
+    });
+
+</script>
+

@@ -196,6 +196,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Administrator\AdministratorAreaRegistration.cs" />
+    <Compile Include="Areas\Administrator\Controllers\MemberController.cs" />
     <Compile Include="Areas\Administrator\Controllers\PlugInController.cs" />
     <Compile Include="Areas\Administrator\Controllers\SendEmailController.cs" />
     <Compile Include="Areas\Administrator\Controllers\AdvertisingController.cs" />
@@ -218,6 +219,7 @@
     <Compile Include="Areas\Administrator\Controllers\LanguageController.cs" />
     <Compile Include="Areas\Administrator\Controllers\LoginController.cs" />
     <Compile Include="Areas\Administrator\Controllers\ModelStateHelper.cs" />
+    <Compile Include="Areas\Administrator\EntityModel\EMember.cs" />
     <Compile Include="Areas\Administrator\EntityModel\ESendEmail.cs" />
     <Compile Include="Areas\Administrator\EntityModel\EService.cs" />
     <Compile Include="Areas\Administrator\EntityModel\ETour.cs" />
@@ -248,6 +250,7 @@
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\BookingController.cs" />
     <Compile Include="Controllers\BookingTourController.cs" />
+    <Compile Include="Controllers\MemberViewController.cs" />
     <Compile Include="Controllers\SendContactController.cs" />
     <Compile Include="Controllers\TourController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -1274,6 +1277,12 @@
     <Content Include="Content\img\js\picker.date.js" />
     <Content Include="Content\img\js\popper.min.js" />
     <Content Include="Content\img\js\shared.js" />
+    <Content Include="Content\img\slick\ajax-loader.gif" />
+    <Content Include="Content\img\slick\fonts\slick.svg" />
+    <Content Include="Content\img\slick\slick-theme.css" />
+    <Content Include="Content\img\slick\slick.css" />
+    <Content Include="Content\img\slick\slick.js" />
+    <Content Include="Content\img\slick\slick.min.js" />
     <Content Include="Content\jquery-ui\sunny.css" />
     <Content Include="Content\Styles\animate.min.css" />
     <Content Include="Content\Styles\bootstrap-datepicker3.min.css" />
@@ -1759,6 +1768,16 @@
     <Content Include="Content\img\img\dark-wall.webp" />
     <Content Include="Content\img\img\light-wall.webp" />
     <Content Include="Content\img\img\logo.webp" />
+    <Content Include="Content\img\slick\config.rb" />
+    <Content Include="Content\img\slick\fonts\slick.eot" />
+    <Content Include="Content\img\slick\fonts\slick.ttf" />
+    <Content Include="Content\img\slick\fonts\slick.woff" />
+    <Content Include="Content\img\slick\slick-theme.less" />
+    <Content Include="Content\img\slick\slick-theme.scss" />
+    <Content Include="Content\img\slick\slick.less" />
+    <Content Include="Content\img\slick\slick.scss" />
+    <Content Include="Areas\Administrator\Views\Member\Index.cshtml" />
+    <Content Include="Areas\Administrator\Views\Member\Create.cshtml" />
     <None Include="Properties\PublishProfiles\bien bac hotel.pubxml" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <None Include="Properties\PublishProfiles\dfsdfsdf.pubxml" />
@@ -2504,8 +2523,9 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="Views\Shared\Comment\Service.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\About\About.cshtml" />
+    <Content Include="Views\About\Index.cshtml" />
+    <Content Include="Views\MemberView\Index.cshtml" />
+    <Content Include="Views\MemberView\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

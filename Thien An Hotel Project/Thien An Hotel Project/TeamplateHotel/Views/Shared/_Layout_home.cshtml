@@ -10,6 +10,7 @@
     List<Slider> sliders = CommentController.GetListSlider(Request.Cookies["LanguageID"].Value, menu.ID);
     Plugin plugin = CommentController.GetPluigPlugin();
     List<Language> languages = CommentController.GetLanguages();
+    List<FeedBack> feedbacks = CommentController.GetFeedback();
 }
 
 <!DOCTYPE html>
@@ -21,288 +22,488 @@
     <link rel="SHORTCUT ICON" href="~/favicon.ico">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta id="description" name="description" content="@ViewBag.MetaDescription">
-
-    <link href="/Content/Styles/bootstrap.min.css" rel="stylesheet">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Barlow:300,300i,400,400i,500,600,700" rel="stylesheet">
-    <link href="/Content/Styles/animate.min.css" rel="stylesheet">
-    <link href="/Content/Styles/main.css" rel="stylesheet">
-    <link href="/Content/Styles/responsive.css" rel="stylesheet">
-    <link href="~/Plugins/Slider/flexslider/flexslider.css" rel="stylesheet" />
-    <link href="/Content/Styles/bootstrap-datepicker3.min.css" rel="stylesheet">
-    <link href="/Content/jquery-ui/sunny.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/Content/Styles/jquery.fancybox.css" media="screen">
+    <link href="~/Content/img/css/room-rate.css" rel="stylesheet" />
+    <link href="~/Content/img/css/check-article.css" rel="stylesheet" />
     
-    <script src="~/Scripts/jquery.min.js"></script>
+    <link href="~/Content/img/css/contact.css" rel="stylesheet" />
+    <link href="~/Content/img/css/shared.css" rel="stylesheet" />
+    <link href="~/Content/img/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/img/css/gallery-grid.css" rel="stylesheet" />
+    <link href="~/Content/img/css/jquery-ui.css" rel="stylesheet" />
+    <link href="~/Content/img/css/css/all.css" rel="stylesheet" />
+    <link href="~/Content/img/slick/slick.css" rel="stylesheet" />
+    <link href="~/Content/img/slick/slick-theme.css" rel="stylesheet" />
+    <link href="~/Content/img/css/bootstrap-datepicker3.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <style type="text/css">
-        .fancybox-margin {
-            margin-right: 17px;
-        }
-    </style>
-    @if (Request.Cookies["LanguageID"].Value == "vi")
-    {
-        <style>
-            html, body, a,p,div,h1,h2,h3,h4,h5 {
-                font-family: 'Roboto', sans-serif!important;
-            }
-        </style>
-    }
 
-    <!--Add Css-->
-    @Html.Raw(plugin.CSS)
-    <!-- Add JS -->
-    @Html.Raw(plugin.JS)
-    
+
+
+
 </head>
 <body class="homepage" cz-shortcut-listen="true">
-    <header id="header" class="">
-        <div class="top-bar" style="display: block;">
+    <!-- back to top -->
+    <div class="backToTop">
+        <i class="fa fa-angle-up"></i>
+    </div>
+    <!-- end back to top -->
+    <!-- header -->
+    <div class="container-fluid header-box">
+        <div class="row header-info">
             <div class="container">
-                <div class="row">
-                    <div class="col-md-4 top-number mb-align" style="text-align:left;">
-                        <div class="hotline">
-                            <i class="fa fa-phone"></i> Hotline: <a href="tel: @hotel.Hotline">@hotel.Hotline</a>
-                            @if (languages.Count > 1)
-                            {
-
-                                foreach (var language in languages)
-                                {
-                                    <span class="langueage-icon"><a href="/SelectLanguge/@language.ID"><img src="@language.Icon" /></a></span>
-                                }
-                            }
-                        </div>
-                    </div>
-                    <div class="col-md-4 right" style="text-align:right;">
-                        <div class="top-menu">
-                            <ul class="about-links">
-                                <li class="hid-cont icon-social">
-                                    <a href="@hotel.Facebook" title="facebook" target="_blank" class="facebook">
-                                        <i class="fa fa-facebook-square" aria-hidden="true"></i>
-                                    </a>
-                                </li>
-                                <li class="hid-cont icon-social">
-                                    <a href="@hotel.Tripadvisor" title="tripadvisor" target="_blank" class="youtobe">
-                                        <i class="fa fa-tripadvisor" aria-hidden="true"></i>
-                                    </a>
-                                </li>
-                                <li class="hid-cont"><a href="/location-map" title="Location &amp; Map"><i class="fa fa-map-marker"></i>@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "LocationMap")</a></li>
-                            </ul>
-                        </div>
-                    </div>
+                <div class="row" style="position: relative;">
+                    <p class="info">
+                        <span>
+                            <a href="#"><i class="fa fa-phone"></i> 0242 242 0777</a>
+                        </span>
+                        <span>
+                            <a href="#"><i class="fas fa-envelope"></i> info@webhotel.vn</a>
+                        </span>
+                    </p>
+                    <p class="icon">
+                        <a href="#"><i class="fab fa-tripadvisor"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </p>
                 </div>
             </div>
         </div>
-
-        <div class="container">
-            <div class="row" style="position:relative;">
-                <div class="logo">
-
-                    <a title="@hotel.Name" href="/" class="blogo" style="display: block;">
-                        <img class="" src="@hotel.Logo" width="%" height=""/>
-                    </a>
-                </div>
- 
-                <nav class="navbar navbar-inverse">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <i class="fa fa-bars"></i>
-                        <span>Menu</span>
-                    </button>
-                    <div class="collapse navbar-collapse">
-                        @*<div class="navbar-left">
-                            <ul class="navbar-nav">
-                                @foreach (var item in menus.OrderBy(a => a.Index).Where(a => a.ParentID == 0).Take(4))
-                                {
-                                    var menuChilds = menus.Where(a => a.ParentID == item.ID).OrderBy(a => a.Index).ToList();
-                                    if (menuChilds.Count > 0)
-                                    {
-                                        if (item.Type != 7)
-                                        {
-                                            item.Alias = "javascript:void(0)";
-                                            <li class="dropdown our-hotels">
-                                                <a href="@item.Alias" title="@item.Title">@item.Title</a>
-                                                <ul class="dropdown-menu">
-                                                    @foreach (var menuChild in menuChilds)
-                                                    {
-                                                        if (menuChild.Type == SystemMenuType.OutSite)
-                                                        {
-                                                            <li><a href="@menuChild.Link" title="@menuChild.Title" target="_blank">@menuChild.Title</a></li>
-                                                        }
-                                                        else
-                                                        {
-                                                            <li><a href="/@menuChild.Alias" title="@menuChild.Title">@menuChild.Title</a></li>
-                                                        }
-
-                                                    }
-                                                </ul>
-                                            </li>
-                                        }
-                                        else
-                                        {
-                                            <li><a href="/@item.Alias" title="@item.Title">@item.Title</a></li>
-                                        }
-
-                                    }
-                                    else
-                                    {
-                                        if (item.Type == SystemMenuType.OutSite)
-                                        {
-                                            <li><a href="@item.Link" title="@item.Title" target="_blank">@item.Title</a></li>
-                                        }
-                                        else
-                                        {
-                                            <li><a href="/@item.Alias" title="@item.Title">@item.Title</a></li>
-                                        }
-                                    }
-
-                                }
-                            </ul>
-                        </div>*@
-
-                        <div class="navbar-right">
-                            <ul class="navbar-nav">
-                                @foreach (var item in menus.Where(a => a.ParentID == 0 && a.Status==true).OrderBy(a => a.Index))
-                                {
-                                    var menuChilds = menus.Where(a => a.ParentID == item.ID).OrderBy(a => a.Index).ToList();
-                                    if (menuChilds.Count > 0)
-                                    {
-                                        item.Alias = "javascript:void(0)";
-                                        <li class="dropdown our-hotels">
-                                            <a href="@item.Alias" title="@item.Title">@item.Title</a>
-                                            <ul class="dropdown-menu">
-                                                @foreach (var menuChild in menuChilds)
-                                                {
-                                                    if (menuChild.Type == SystemMenuType.OutSite)
-                                                    {
-                                                        <li><a href="@menuChild.Link" title="@menuChild.Title" target="_blank">@menuChild.Title</a></li>
-                                                    }
-                                                    else
-                                                    {
-                                                        <li><a href="/@menuChild.Alias" title="@menuChild.Title">@menuChild.Title</a></li>
-                                                    }
-                                                }
-                                            </ul>
-                                        </li>
-                                    }
-                                    else
-                                    {
-                                        if (item.Type == SystemMenuType.OutSite)
-                                        {
-                                            <li><a href="@item.Link" title="@item.Title" target="_blank">@item.Title</a></li>
-                                        }
-                                        else
-                                        {
-                                            <li><a href="/@item.Alias" title="@item.Title">@item.Title</a></li>
-                                        }
-                                    }
-
-                                }
-                            </ul>
-                        </div>
+        <div class="row header">
+            <div class="container">
+                <div class="row forResLogo" style="position: relative;">
+                    <div class="logo">
+                        <a title="@hotel.Name" href="/" class="blogo" style="display: block;">
+                            <img class="" src="@hotel.Logo" width="100%" height="" />
+                        </a>
                     </div>
-                </nav>
-            </div>
-        </div>
-    </header>
-
-
-    <section id="main-slider" class="no-margin slider-home">
-        <div class="flexslider">
-            <ul class="slides">
-                @foreach (var item in sliders)
-                {
-                    <li>
-                        <img src="@item.Image">
-                        @if (string.IsNullOrEmpty(item.Content) == false)
-                        {
-                            <div class="slide-caption">
-                                <h3>@item.Title</h3>
-                                <p>
-                                    @Html.Raw(item.Content)
-                                </p>
-                                <a class="btn detail-btn" href="@item.Link">@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "ViewDetail")</a>
+                    <div class="menu">
+                        <li class="current-page">
+                            <a href="/" class="title">Home</a>
+                            <div class="drop-menu">
+                                <div class="col-12 item first"><a href="#">Home 1</a></div>
+                                <div class="col-12 item"><a href="#">Home 2</a></div>
                             </div>
-                        }
-                    </li>
-                }
-            </ul>
-        </div>
-    </section>
-
-    <section class="wow fadeInUp animated" style="padding: 50px 0px 50px; visibility: visible; animation-name: fadeInUp; background: #fff">
-        <div class="container">
-            <div class="row">
-                @RenderBody()
+                        </li>
+                        <li>
+                            <a href="#" class="title">Feature</a>
+                            <div class="drop-menu">
+                                <div class="col-12 item first">
+                                    <a href="#">Pages<span><i class="fa fa-angle-right"></i></span></a>
+                                    <div class="drop-child-menu each">
+                                        <div class="col-12 item"><a href="/about">About</a></div>
+                                        <div class="col-12 item"><a href="/memberview">Team</a></div>
+                                        <div class="col-12 item"><a href="#">Members</a></div>
+                                        <div class="col-12 item"><a href="/lien-he">Contact</a></div>
+                                    </div>
+                                </div>
+                                <div class="col-12 item"><a href="#">Typography</a></div>
+                                <div class="col-12 item"><a href="#">Shortcode</a></div>
+                                <div class="col-12 item"><a href="#">Video Tutorials</a></div>
+                                <div class="col-12 item"><a href="#">Supports</a></div>
+                                <div class="col-12 item"><a href="#">404</a></div>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="/phong-gia" class="title">Room & Rates</a>
+                        </li>
+                        <li>
+                            <a href="/special-offers1" class="title">Blog</a>
+                            <div class="drop-menu">
+                                <div class="col-12 item first"><a href="#">Classic</a></div>
+                                <div class="col-12 item">
+                                    <a href="#">Mansory<span><i class="fa fa-angle-right"></i></span></a>
+                                    <div class="drop-child-menu each">
+                                        <div class="col-12 item"><a href="#">Mansory columns 2</a></div>
+                                        <div class="col-12 item"><a href="#">Mansory columns 3</a></div>
+                                    </div>
+                                </div>
+                                <div class="col-12 item">
+                                    <a href="#">Portfolio<span><i class="fa fa-angle-right"></i></span></a>
+                                    <div class="drop-child-menu each">
+                                        <div class="col-12 item"><a href="#">Portfolio columns 2</a></div>
+                                        <div class="col-12 item"><a href="check-article.html">Portfolio columns 3</a></div>
+                                    </div>
+                                </div>
+                                <div class="col-12 item"><a href="#">Post Format</a></div>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="/gallery" class="title">Gallery</a>
+                            <div class="drop-menu">
+                                <div class="col-12 item first"><a href="#">Grids</a></div>
+                                <div class="col-12 item"><a href="#">Mansory</a></div>
+                                <div class="col-12 item"><a href="#">Cobbles</a></div>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="#" class="title">Shop</a>
+                        </li>
+                    </div>
+                    <!-- res header button -->
+                    <div class="headerBtn">
+                        <div class="box" id="box1">
+                            <div class="line1 line"></div>
+                            <div class="line2 line"></div>
+                            <div class="line3 line"></div>
+                        </div>
+                        <div class="box" id="box2">
+                            <div class="line4 line"></div>
+                            <div class="line5 line"></div>
+                            <div class="line6 line"></div>
+                        </div>
+                        <div class="box" id="box3">
+                            <div class="line7 line"></div>
+                            <div class="line8 line"></div>
+                            <div class="line9 line"></div>
+                        </div>
+                    </div>
+                    <!-- end res header button -->
+                </div>
             </div>
         </div>
-    </section>
+    </div>
+    <!-- end header -->
+    <!-- resHeader -->
+    <div class="resHeader container-fluid" id="resHeader">
+        <div class="row">
+            <div class="hidden-drop-menu" id="dropMenu">
+                <div class="col-12 itemBox">
+                    <div class="pre-hid">Home <span><i class="fa fa-angle-down"></i></span></div>
+                    <div class="hid-item container">
+                        <div class="row">
+                            <div class="child-menu each">
+                                <div class="col-12">
+                                    <div class="hid-child"><a href="index.html">Home 1</a></div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="hid-child"><a href="#">Home 2</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 itemBox">
+                    <div class="pre-hid">Features <span><i class="fa fa-angle-down"></i></span></div>
+                    <div class="hid-item container">
+                        <div class="row">
+                            <div class="child-menu each">
+                                <div class="col-12">
+                                    <div class="hid-child pre-hid-child">Pages <span><i class="fa fa-angle-down"></i></span></div>
+                                    <div class="hid-item container">
+                                        <div class="row">
+                                            <div class="grandchild-menu each">
+                                                <div class="col-12">
+                                                    <div class="hid-child">
+                                                        <a href="about.html">about</a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="hid-child"><a href="our-team.html">team</a></div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="hid-child"><a href="#">team members</a></div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="hid-child"><a href="contact.html">contact</a></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="hid-child">
+                                        <a href="#">typography</a>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="hid-child">
+                                        <a href="#">short codes</a>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="hid-child">
+                                        <a href="#">video tutorials</a>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="hid-child">
+                                        <a href="#">supports</a>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="hid-child">
+                                        <a href="#">404</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 itemBox  ">
+                    <div class="pre-hid"><a href="room-rate.html">room & rate</a></div>
+                </div>
+                <div class="col-12 itemBox  ">
+                    <div class="pre-hid">blog <span><i class="fa fa-angle-down"></i></span></div>
+                    <div class="hid-item container">
+                        <div class="row">
+                            <div class="child-menu each">
+                                <div class="col-12">
+                                    <div class="hid-child"><a href="#">classic</a></div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="hid-child pre-hid-child"><a href="#">mansory <span><i class="fa fa-angle-down"></i></span></a></div>
+                                    <div class="hid-item container">
+                                        <div class="row">
+                                            <div class="grandchild-menu each">
+                                                <div class="col-12">
+                                                    <div class="hid-child"><a href="#">mansory columns 2</a></div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="hid-child"><a href="#">mansory columns 3</a></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="hid-child pre-hid-child"><a href="#">portfolio <span><i class="fa fa-angle-down"></i></span></a></div>
+                                    <div class="hid-item container">
+                                        <div class="row">
+                                            <div class="grandchild-menu each">
+                                                <div class="col-12">
+                                                    <div class="hid-child"><a href="#">portfolio columns 2</a></div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="hid-child"><a href="check-article.html">portfolio columns 3</a></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="hid-child"><a href="#">post formats</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 itemBox  ">
+                    <div class="pre-hid">Gallery <span><i class="fa fa-angle-down"></i></span></div>
+                    <div class="hid-item container">
+                        <div class="row">
+                            <div class="child-menu each">
+                                <div class="col-12">
+                                    <div class="hid-child"><a href="gallery-grid.html">grid</a></div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="hid-child"><a href="#">mansory</a></div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="hid-child"><a href="#">cobbles</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 itemBox  ">
+                    <div class="pre-hid hid-item"><a href="#">shop</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end resHeader -->
+    <!-- carousel banner -->
     @if (ViewBag.Home == true)
     {
-        @Html.Partial("Comment/Service");
-    }
+        @*@Html.Partial("Comment/Service");*@
+        <div class="container-fluid banner">
+            <div class="row banner-slide">
+                @foreach (var item in sliders)
+                {
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-xs-12 col-12 banner-item" style="background-image:url(@item.Image)">
+                        <div class="title banner-word">
+                            <p>@item.Title</p>
+                        </div>
+                        <div class="description banner-word">
+                            <p>@item.Content</p>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="prev-banner-box"><span><i class="fa fa-angle-left" id="prevBanner"></i></span></div>
+            <div class="next-banner-box"><span><i class="fa fa-angle-right" id="nextBanner"></i></span></div>
+             @if (ViewBag.Home == true)
+              {
+                <div class="booking">
 
-    <footer id="footer" class="midnight-blue wow fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;">
-        <div class="footer-content">
+                        <form action="/booking" method="get" id="formCheckRoom" novalidate="novalidate" class="row" style="background-color: #faf9f8">
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 item">
+                                <p>@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "CheckIn")<span>*</span></p>
+                                <div class="infos">
+                                    <input type="date" id="checkin" name="CheckIn" class="criteria">
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 item item-sm">
+                                <p>@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "CheckOut")<span>*</span></p>
+                                <div class="infos">
+                                    <input type="date" id="checkout" name="CheckOut" class="criteria">
+                                </div>
+                            </div>
+                            <div class="col-xl-1 col-lg-4 col-md-6 col-sm-12 col-12 item item-md">
+                                <p>@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "Adults")</p>
+                                <div class="infos">
+                                    <select class="criteria" id="adults" name="Adult">
+                                        <option value="1" selected="selected">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15">15</option>
+                                        <option value="16">16</option>
+                                        <option value="17">17</option>
+                                        <option value="18">18</option>
+                                        <option value="19">19</option>
+                                        <option value="20">20</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xl-1 col-lg-4 col-md-6 col-sm-12 col-12 item item-lg">
+                                <p>@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "Child")</p>
+                                <div class="infos">
+                                    <select class="criteria" id="Chilren" name="Child">
+                                        <option value="0" selected="selected">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xl-2 col-lg-4 col-md-6 col-sm-12 col-12 item item-lg">
+                                <p style="color: transparent;">A</p>
+                                <div class="infos">
+                                    <input type="submit" id="cmdCheckHotel" name="cmdCheckHotel" type="submit" value="@GetLanguage.Language(Request.Cookies["LanguageID"].Value, "CheckAvailability")" class="criteria sub-btn">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    }
+            </div>
+        }
+
+
+
+
+
+
+
+    @RenderBody()
+
+
+    <!-- footer -->
+    <div class="container-fluid footer">
+        <div class="row info">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-4 col-sm-6 col-xs-12">
-                                <h4>@hotel.Name</h4>
-                                <hr class="small">
-                                <p>@hotel.Address</p>
-                                <p><label>Phone: </label><span> @hotel.Tel</span> - <label>Fax: </label><span> @hotel.Fax</span></p>
-                                <p><label>Email: </label><span><a href="mailto:@hotel.Email" title="@hotel.Email">@hotel.Email</a></span></p>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 item contact">
+                        <p class="title">Contact Us</p>
+                        <p class="criteria">Your Email<span>*</span></p>
+                        <input type="email" name="">
+                        <p class="criteria">Your Name<span>*</span></p>
+                        <input type="name" name="">
+                        <p class="criteria">Message<span>*</span></p>
+                        <textarea></textarea>
+                        <div class="policy">
+                            <div class="checkbox">
+                                <input type="checkbox" name="" id="check-policy">
                             </div>
-                            @foreach (var secondMenu in SecondMenus.Where(a => a.ParentID == 0).OrderBy(a=>a.Index))
-                            {
-                                List<Menu> menuChilds = SecondMenus.Where(a => a.ParentID == secondMenu.ID).OrderBy(a=>a.Index).ToList();
-                                <div class="col-md-2 col-sm-6 col-xs-12">
-                                    <h4>@secondMenu.Title</h4>
-                                    <hr class="small">
-                                    <ul>
-                                        @foreach (var item in menuChilds)
-                                        {
-                                            <li><a href="/@item.Alias" title="">@item.Title</a></li>
-                                        }
-                                    </ul>
-                                </div>
-                            }
-                            <div class="col-md-2 col-sm-6 col-xs-12 footer-contact-box">
-                                <p> power by <a href="http://webhotel.vn" target ="_blank">webhotel.vn</a></p>
+                            <div class="words">
+                                <p>I agree that my submitted data is being collected and stored. For further details on handling user data, see our</br><span><a href="#">Privacy Policy</a></span></p>
                             </div>
+                            <button class="condition-policy">send message</button>
                         </div>
-
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 item category">
+                        <p class="title">Categories</p>
+                        <li><a href="#">Restaurant and Inn</a></li>
+                        <li><a href="#">The Gallery</a></li>
+                        <li><a href="#">The Bedrooms</a></li>
+                        <li><a href="#">The Menus</a></li>
+                        <li><a href="#">The Lastest</a></li>
+                        <li><a href="#">The Story</a></li>
+                        <li><a href="#">The Detail</a></li>
+                        <p class="title" style="margin-top: 50px;">Connect</p>
+                        <p class="icon">
+                            <a href="#"><i class="fab fa-tripadvisor"></i></a>
+                            <a href="#"><i class="fab fa-facebook"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </p>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 item direction">
+                        <p class="title">Get Directions</p>
+                        <div class="map">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.808871869986!2d105.77227781493282!3d21.040332185992185!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313454c9755033dd%3A0xf13b328d1266f239!2zMTQ3IFBo4buRIE1haSBE4buLY2gsIE1haSBE4buLY2gsIEPhuqd1IEdp4bqleSwgSMOgIE7hu5lp!5e0!3m2!1svi!2s!4v1608189785545!5m2!1svi!2s" width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                        </div>
+                        <p class="address">147 Phố Mai Dịch, Mai Dịch, Cầu Giấy, Hà Nội</p>
+                        <p class="address">Tel: 0242 242 0777</p>
+                        <p class="address">Email: info@webhotel.vn</p>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="footer-bottom">
-            <div class="container">
-               
+        <div class="row copyright">
+            <div class="container" style="height: 100%;">
+                <p><span><a href="https://webhotel.vn/" target="_blank">WEBHOTEL</a> </span><i class="far fa-copyright"></i> 2020. All right reserved.</p>
             </div>
         </div>
-    </footer>
+    </div>
+    <!-- end footer -->
+    <script src="~/Content/img/js/jquery-3.4.1.min.js"></script>
+    <script src="~/Content/img/js/shared.js"></script>
+    <script src="~/Content/img/slick/slick.min.js"></script>
+    <script src="~/Content/img/js/gallery-grid.js"></script>
+    <script src="~/Content/img/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/Content/img/js/jquery.waypoints.min.js"></script>
+    <script src="~/Content/img/js/jquery.counterup.js"></script>
+    <script src="~/Content/img/js/check-article.js"></script>
     
-    
-    <script type="text/javascript" src="/Scripts/Hotel/jquery.js"></script>
+        @*<script type="text/javascript" src="/Scripts/Hotel/jquery.js"></script>*@
         <script type="text/javascript" src="/Scripts/Hotel/jquery-ui.js"></script>
-    <script type="text/javascript" src="/Scripts/Hotel/bootstrap.min.js"></script>
-    <script src="~/Plugins/prettyphoto-master/js/jquery.prettyPhoto.js"></script>
-    <script src="/Scripts/Hotel/jquery.isotope.min.js" type="text/javascript"></script>
-    <script type="text/javascript" src="/Scripts/Hotel/isotope.min.js"></script>
-    <script type="text/javascript" src="/Scripts/Hotel/jquery.fancybox.pack.js"></script>
-    <script type="text/javascript" src="/Scripts/Hotel/main.js"></script>
-    <script type="text/javascript" src="/Scripts/main.js"></script>
-    <script type="text/javascript" src="/Scripts/Hotel/wow.min.js"></script>
-    <script type="text/javascript" src="/Scripts/Hotel/bootstrap-datepicker.min.js"></script>
-    <script type="text/javascript" src="/Scripts/Hotel/bootstrap-timepicker.js"></script>
-    <script type="text/javascript" src="/Scripts/Hotel/jquery.flexslider.js"></script>
-    <script type="text/javascript" src="/Scripts/Hotel/ekko-lightbox.js"></script>
+        @*<script type="text/javascript" src="/Scripts/Hotel/bootstrap.min.js"></script>
+        <script src="~/Plugins/prettyphoto-master/js/jquery.prettyPhoto.js"></script>
+        <script src="/Scripts/Hotel/jquery.isotope.min.js" type="text/javascript"></script>
+        <script type="text/javascript" src="/Scripts/Hotel/isotope.min.js"></script>
+        <script type="text/javascript" src="/Scripts/Hotel/jquery.fancybox.pack.js"></script>
+        <script type="text/javascript" src="/Scripts/Hotel/main.js"></script>
+        <script type="text/javascript" src="/Scripts/main.js"></script>
+        <script type="text/javascript" src="/Scripts/Hotel/wow.min.js"></script>
+        <script type="text/javascript" src="/Scripts/Hotel/bootstrap-datepicker.min.js"></script>
+        <script type="text/javascript" src="/Scripts/Hotel/bootstrap-timepicker.js"></script>
+        <script type="text/javascript" src="/Scripts/Hotel/jquery.flexslider.js"></script>
+        <script type="text/javascript" src="/Scripts/Hotel/ekko-lightbox.js"></script>
 
-    <script src="~/Plugins/TabTour/Js/zozo.tabs.min.js"></script>
-    <script src="~/Plugins/prettyphoto-master/js/jquery.prettyPhoto.js"></script>
-    <script src="~/Plugins/OwlCarousel/owl.carousel.min.js"></script>
+        <script src="~/Plugins/TabTour/Js/zozo.tabs.min.js"></script>
+        <script src="~/Plugins/prettyphoto-master/js/jquery.prettyPhoto.js"></script>
+        <script src="~/Plugins/OwlCarousel/owl.carousel.min.js"></script>*@
 
     <script type="text/javascript">
         $('.flexslider').flexslider();
@@ -318,47 +519,31 @@
             directionNav: false
         });
     </script>
-    <script type="text/javascript">
-        $(window).scroll(function () {
-            var top = jQuery(window).scrollTop();
-            if (top >= 220) {
-                jQuery("#header").addClass("header-docking");
-                jQuery(".blogo").css("display", "none");
-                jQuery(".slogo").css("display", "block");
-                jQuery(".top-bar").css("display", "none");
-            } else {
-                jQuery("#header").removeClass("header-docking");
-                jQuery(".blogo").css("display", "block");
-                jQuery(".slogo").css("display", "none");
-                jQuery(".top-bar").css("display", "block");
-            }
-        });
-    </script>
-    
+
     <script>
-    $(document).ready(function () {
-        $("#owl-demo2").owlCarousel({
-            loop: false,
-            margin: 25,
-            responsiveClass: true,
-            autoplay: false,
-            dots: false,
-            nav: true,
-            navText: ['<span class="fa fa-angle-left"></span>', '<span class="fa fa-angle-right"></span>'],
-            items: 3, //10 items above 1000px browser width
-            responsive: {
-                0: {
-                    items: 1
-                },
-                600: {
-                    items: 2
-                },
-                1000: {
-                    items: 3
+        $(document).ready(function () {
+            $("#owl-demo2").owlCarousel({
+                loop: false,
+                margin: 25,
+                responsiveClass: true,
+                autoplay: false,
+                dots: false,
+                nav: true,
+                navText: ['<span class="fa fa-angle-left"></span>', '<span class="fa fa-angle-right"></span>'],
+                items: 3, //10 items above 1000px browser width
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    600: {
+                        items: 2
+                    },
+                    1000: {
+                        items: 3
+                    }
                 }
-            }
+            });
         });
-    });
     </script>
 </body>
 </html>
